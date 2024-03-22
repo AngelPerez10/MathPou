@@ -3,12 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name="index"),
-   path('grafica/<int:amplitud>/<int:tiempo>/', views.obtener, name='obtenergrafica'),
-    path('grafica/', views.grafica, name='grafica'),
-    path('hello/<str:username>', views.hello, name="hello"),
-    path('projects/', views.projects, name="projects"),
-    path('projects/<int:id>', views.project_detail, name="project_detail"),
-    path('tasks/', views.tasks, name="tasks"),
-    path('create_task/', views.create_task, name="create_task"),
-    path('create_project/', views.create_project, name="create_project"),
+    path('grafica_index/', views.grafica, name="grafica_index"),
+    path('grafica/obtener', views.obtener, name="grafica"),
+    path('login/',views.login, name='login'),
+
 ]

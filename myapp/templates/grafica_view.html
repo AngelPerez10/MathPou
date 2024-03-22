@@ -1,0 +1,11 @@
+{# grafica_view.html #}
+
+<div id="plotly-chart"></div>
+
+<script>
+    var graph = JSON.parse('{{ graph_json | safe }}');
+    var layout = graph.layout;
+    var data = graph.data;
+    Plotly.newPlot('plotly-chart', data, layout, {displayModeBar: false, onclick: false});
+</script>
+
