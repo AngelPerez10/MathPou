@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/login.css">
+    <title>Registro</title>
+</head>
+
+<body>
+
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="row border rounded-5 p-3 bg-white shadow box-area">
+            <!-- Lado Izquierdo -->
+            <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box"
+                style="background: #2271FF;">
+                <div class="featured-image mb-3">
+                    <img src="img/register.svg" class="img-fluid" style="width: 250px;">
+                </div>
+                <p class="text-white fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">MathPou</p>
+                <small class="text-white text-wrap text-center"
+                    style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Simulador Fourier para estudiantes de ingeniería.</small>
+            </div>
+
+            <!-- Lado Derecho -->
+            <div class="col-md-6 right-box">
+                <div class="row align-items-center">
+                    <div class="header-text mb-4">
+                        <h2>Registro</h2>
+                        <p>Estamos emocionados de tenerte aquí.</p>
+                    </div>
+                    <form id="signup-form">
+                        <div class="input-group mb-3">
+                            <input type="text" id="nameInp" class="form-control form-control-lg bg-light fs-6"
+                                placeholder="Ingresa tu nombre" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="email" id="emailInp" class="form-control form-control-lg bg-light fs-6"
+                                placeholder="Ingresa tu correo electrónico" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="password" id="passwordInp" class="form-control form-control-lg bg-light fs-6"
+                                placeholder="Crea una contraseña" required>
+                        </div>
+                        <div class="input-group mb-1">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="termCon" required>
+                                <label for="termCon" class="form-check-label text-secondary"><small>Acepto todos los términos y condiciones</small></label>
+                            </div>
+                        </div>
+                        <button type="submit" id="registro" class="btn btn-lg btn-primary w-100 fs-6">Registrarse</button>
+                    </form>
+                    <div class="row mt-3">
+                        <small>¿Ya eres miembro? <a href="login.html">Inicia Sesión</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js"></script>
+    <script type="module" src="js/registro.js"></script>
+    
+</body>
+
+</html>
