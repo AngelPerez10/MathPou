@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'styles/login.css' %}">
+<title>D3 Draggable Bars</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+    .bar {
+        fill: steelblue;
+        cursor: move;
+    }
+
+    .bar:hover {
+        fill: orange;
+    }
+
+    .bar-label {
+        font-size: 12px;
+        text-anchor: middle;
+        fill: white;
+    }
+</style>
+</head>
+<body>
+<script>
+    // Datos iniciales
+    var data = [
+        { amplitude: 0.95, time: "A1" },
+        { amplitude: -1.10, time: "A2" },
+        { amplitude: 0.65, time: "A3" }
+    ];
+
+    // Crear SVG
+    var svg = d3.select("body")
+        .append("svg")
+        .attr("width", 800)
+        .attr("height", 600);
+
+    // Escala para los ejes
+    var x = d3.scaleBand()
+        .domain(data.map(function(d) { return d.time; }))
+        .range([0, 800])
+        .padding(0.1);
+
+    var y = d3.scaleLinear()
+        .domain([-1.5, 2.5])
+        .range([600, 0]);
+
+    // Crear barras
+    var bars = svg.selectAll(".bar")
+        .data(data)
+        .enter().append("g")
+        .attr("class", "bar")
+        .attr("transform", function(d) { return "translate(" + x(d.time) + ",0)"; });
+
+    bars.append("rect")
+        .attr("x", 0)
+        .attr("y", function(d) { return y(Math.max(0, d.amplitude)); })
+        .attr("width", x.bandwidth())
+        .attr("height", function(d) { return Math.abs(y(d.amplitude) - y(0)); })
+        .attr("fill", "steelblue");
+
+    bars.append("text")
+        .attr("class", "bar-label")
+        .attr("x", x.bandwidth() / 2)
+        .attr("y", function(d) { return y(d.amplitude) + (d.amplitude < 0 ? 15 : -5); })
+        .text(function(d) { return "Amplitud: " + d.amplitude + "\nTiempo: " + d.time; });
+
+    // Función para arrastrar las barras
+    function dragstarted(event, d) {
+        d3.select(this).raise().classed("active", true);
+    }
+
+    function dragged(event, d) {
+        var newY = Math.min(y(0), Math.max(y(-1.5), d3.pointer(event)[1]));
+        d3.select(this)
+            .attr("transform", "translate(" + x(d.time) + "," + newY + ")");
+        d.amplitude = y.invert(newY);
+        d3.select(this).select("text")
+            .attr("y", function(d) { return y(d.amplitude) + (d.amplitude < 0 ? 15 : -5); })
+            .text(function(d) { return "Amplitud: " + d.amplitude + "\nTiempo: " + d.time; });
+    }
+
+    function dragended(event, d) {
+        d3.select(this).classed("active", false);
+    }
+
+    // Agregar funcionalidad de arrastre a las barras
+    bars.call(d3.drag()
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended));
+
+    // Agregar ejes
+    svg.append("g")
+        .attr("transform", "translate(0," + 600 + ")")
+        .call(d3.axisBottom(x));
+
+    svg.append("g")
+        .call(d3.axisLeft(y));
+</script>
+</body>
+</html>

@@ -10,6 +10,7 @@
     <title>MathPou</title>
     <link rel="stylesheet" href="{% static 'styles/home.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
 </head>
 
 <body>
@@ -19,13 +20,11 @@
     <!-- NAVBAR -->
     <nav>
         <div class="navbar">
-            <div class="logo"><a href="#">MathPou.</a></div>
+            <div class="logo"><a href="#">MathPou</a></div>
             <ul class="menu">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">Acerca</a></li>
+                <li><a href="#services">Servicios</a></li>
                 <div class="cancel-btn">
                     <i class="fas fa-times"></i>
                 </div>
@@ -48,13 +47,14 @@
                 <div class="text-one">Hola,</div>
                 <div class="text-two">Nosotros somos</div>
                 <div class="text-three">MathPou</div>
-                <div class="text-four">Simulador Fourier</div>
+                <div class="text-four">Simulador de Fourier</div>
             </div>
             <div class="button">
                 <button id="loginHome" data-url="{% url 'grafica_index' %}">Inicia Sesión</button>
             </div>
         </div>
     </section>
+
     <!-- About Section Start -->
     <section class="about" id="about">
         <div class="content">
@@ -65,8 +65,8 @@
                 </div>
                 <div class="right">
                     <div class="topic">Simulador Fourier MathPou</div>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, porro veritatis pariatur,
+                     <p>
+                        Somo un enfoque determinista -- Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt, porro veritatis pariatur,
                         nobis voluptatem ipsum repellat nemo quisquam error reprehenderit recusandae odio vel, suscipit.
                         Voluptas mollitia accusantium quaerat aspernatur labore dolorum placeat ipsa sint nam
                         perspiciatis eos consectetur veritatis debitis, quis aliquam unde sed maiores sit! Hic molestiae
@@ -82,6 +82,46 @@
         </div>
     </section>
 
+     <!-- PROXIMOS SERVICIOS -->
+     <section class="services" id="services">
+        <div class="content">
+            <div class="title"><span>Servicios</span></div>
+            <div class="boxes">
+                <div class="box">
+                    <div class="icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <div class="topic">Pulso</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia autem quam odio, qui
+                        voluptatem eligendi?</p>
+                </div>
+                <div class="box">
+                    <div class="icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="topic">Triangulares</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia autem quam odio, qui
+                        voluptatem eligendi?</p>
+                </div>
+                <div class="box">
+                    <div class="icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="topic">Combinadas</div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia autem quam odio, qui
+                        voluptatem eligendi?</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section Start -->
+    <footer>
+        <div class="text">
+            <span>Created By <a href="#">CodingLab</a> | &#169; 2024 All Rights Reserved</span>
+        </div>
+    </footer>
 
     <script src="{% static 'js/home.js' %}"></script>
 

@@ -6,20 +6,28 @@ import json.encoder
 import plotly as p
 import plotly.express as px
 import plotly.graph_objects as go
+from django.shortcuts import render
+from django.http import JsonResponse
+#from .firebase_auth import register_user
+
 
 
 
 import numpy as np
-
 # Create your views here.
-
-
-
-
 def index(request):
     return render(request, 'home.html', {
     })
 
+def registro(request):
+
+    return render(request, 'registro.htm',{
+
+})
+
+def prueba(request):
+    return render(request, 'prueba.html', {
+    })
 def login(request):
     return render(request, 'login.html', {
     })
