@@ -1,0 +1,94 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/index.css" %}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav id="sidebar">
+        <div class="logo-name">
+            <span class="logo_name">MathPou</span>
+        </div>
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="#">
+                        <i class="uil uil-estate"></i>
+                        <span class="link-name">Inicio</span>
+                    </a></li>
+
+                <li><a href="#">
+                        <i class="uil uil-files-landscapes"></i>
+                        <span class="link-name">Archivos</span>
+                    </a></li>
+
+                <li><a href="#">
+                        <i class="uil uil-chart"></i>
+                        <span class="link-name">Ejemplos</span>
+                    </a></li>
+                <li><a href="#">
+                        <i class="uil uil-comment-exclamation"></i>
+                        <span class="link-name">Acerca de</span>
+                    </a></li>
+            </ul>
+
+            <ul class="logout-mod">
+                <li><a href="{% url 'base:home' %}">
+                        <i class="uil uil-signout"></i>
+                        <span class="link-name">Cerrar Sesión</span>
+                    </a>
+                </li>
+
+                <li class="mode">
+                    <a>
+                        <i class="uil uil-moon"></i>
+                        <span class="link-name">Modo Oscuro</span>
+                    </a>
+                    <div class="mode-toggle">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle" id="sidebarToggle"></i>
+        </div>
+        <div class="dash-content">
+            <div class="overview">
+                <div class="title">
+                    <i class="uil uil-chart-line"></i>
+                    <span class="text">Graficas</span>
+                </div>
+                <div class="boxes">
+                    <div class="box box1">
+                        <div class="icon"><i class="fas fa-wave-square"></i></div>
+                        <div class="text">Pulso</div>
+                    </div>
+                    <div class="box box2">
+                        <div class="icon"><i class="fas fa-chart-area"></i></div>
+                        <div class="text">Triangulares</div>
+                    </div>
+                    <div class="box box3">
+                        <div class="icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="text">Combinadas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'js/index.js' %}"></script>
+</body>
+
+</html>
+{% endblock content %}

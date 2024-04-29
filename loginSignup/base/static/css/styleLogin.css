@@ -28,6 +28,51 @@ body {
     border-radius: 30px;
 }
 
+/* Estilo para el formulario */
+form {
+    margin-top: 20px; /* Margen superior */
+}
+
+/* Estilo para las etiquetas de los campos */
+form label {
+    display: block; /* Mostrar las etiquetas en bloques para que estén en una línea separada */
+    margin-bottom: 5px; /* Margen inferior entre las etiquetas y los campos */
+    
+}
+
+/* Estilo para los campos de entrada */
+form input[type="text"],
+form input[type="password"],
+form textarea {
+    width: 100%; /* Ancho completo del contenedor */
+    padding: 10px; /* Espaciado interno */
+    margin-bottom: 10px; /* Margen inferior */
+    border: 1px solid #ccc; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Incluir el borde y el relleno en el ancho total */
+}
+
+/* Estilo para el botón de inicio de sesión */
+#loginbt {
+    width: 100%; /* Ancho completo del contenedor */
+    padding: 10px; /* Espaciado interno */
+    margin-top: 10px; /* Margen superior */
+    background-color: #007bff; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor apuntador */
+}
+
+/* Estilo para los mensajes de error */
+.error-message {
+    color: red; /* Color rojo */
+    font-size: 14px; /* Tamaño de fuente */
+    margin-top: 5px; /* Margen superior */
+}
+
+
+
 @media only screen and (max-width: 768px) {
 
     .box-area {

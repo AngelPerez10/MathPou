@@ -29,6 +29,19 @@ body {
     background-color: var(--primary-color);
 }
 
+body.dark{
+    --primary-color: #3A3B3C;
+    --panel-color: #242526;
+    --text-color: #CCC;
+    --black-light-color: #CCC;
+    --border-color: #4D4C4C;
+    --toggle-color: #FFF;
+    --box1-color: #3A3B3C;
+    --box2-color: #3A3B3C;
+    --box3-color: #3A3B3C;
+    --title-icon-color: #CCC;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -47,6 +60,10 @@ body {
     background: #2271FF;
 }
 
+body.dark::-webkit-scrollbar-thumb:hover,
+body.dark .activity-data::-webkit-scrollbar-thumb:hover{
+    background: #3A3B3C;
+}
 
 nav {
     position: fixed;
@@ -107,6 +124,10 @@ nav .menu-items {
     list-style: none;
 }
 
+body.dark li a:hover:before{
+    background-color: var(--text-color);
+}
+
 .menu-items li a {
     display: flex;
     align-items: center;
@@ -150,6 +171,11 @@ nav.close li a .link-name {
 .nav-links li a:hover i,
 .nav-links li a:hover .link-name {
     color: var(--primary-color);
+}
+
+body.dark .nav-links li a:hover i,
+body.dark .nav-links li a:hover .link-name{
+    color: var(--text-color);
 }
 
 .menu-items .logout-mode {
@@ -204,6 +230,10 @@ nav.close li a .link-name {
     width: calc(100% - 250px);
     padding: 10px 14px;
     transition: var(--tran-05);
+}
+
+body.dark .switch:before{
+    left: 20px;
 }
 
 nav.close~.dashboard {
@@ -294,7 +324,7 @@ nav.close~.dashboard .top {
 .box .icon {
     display: inline-block;
     font-size: 40px;
-    color: #fff;
+    color: var(--text-color);
     height: 60px;
     width: 60px;
     border-radius: 50%;
@@ -303,14 +333,12 @@ nav.close~.dashboard .top {
 }
 
 .box .text {
+    white-space: nowrap;
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 5px;
-}
+    color: var(--text-color);
 
-.box .number {
-    font-size: 24px;
-    font-weight: 700;
 }
 
 .box1 {
