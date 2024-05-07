@@ -41,7 +41,9 @@ function drawAxes() {
 
 
 function setup() {
-    createCanvas(800, 600);
+    // Tamaño del canvas igual al tamaño del contenedor
+    let canvas = createCanvas(800, 600);
+    canvas.parent('canvas-container'); // Establece el contenedor del canvas
     textSize(15);
 
     // Configuración inicial de las barras

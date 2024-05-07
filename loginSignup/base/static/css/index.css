@@ -42,6 +42,21 @@ body.dark{
     --title-icon-color: #CCC;
 }
 
+.centrado-grafica {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 50px); /* Asumiendo que 50px es la altura de la barra superior */
+    margin-top: 40%; /* Ajusta según la altura de la barra superior */
+}
+
+#canvas-container {
+    width: 80%; /* O el ancho que desees para tu gráfico */
+    max-width: 800px; /* O el máximo ancho que desees para tu gráfico */
+    height: 95%; /* Ajusta la altura según sea necesario */
+}
+
+
 ::-webkit-scrollbar {
     width: 8px;
 }
