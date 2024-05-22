@@ -24,18 +24,18 @@
                 <form id="signup-form" method="POST">
                     {% csrf_token %}
                     {% for field in form %}
-                        <div class="input-group mb-3">
-                            {{ field.label_tag }}
+                        <div class="form-group">
+                            <label>{{ field.label }}</label>
                             {{ field }}
                             {% if field.help_text %}
                             <small class="form-text text-muted"></small>
                             {% endif %}
                         </div>
                     {% endfor %}
-                    <div class="input-group mb-3">
+                    <div class="form-group">
                         <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Registrarse</button>
                     </div>
-                </form>
+                </form>                
                 <div class="row mt-3">
                     <small>¿Ya eres miembro? <a href="{% url 'base:login' %}">Inicia Sesión</a></small>
                 </div>

@@ -5,16 +5,13 @@ body {
     background: #ececec;
 }
 
-
 .box-area {
     width: 930px;
 }
 
-
 .right-box {
     padding: 40px 30px 40px 40px;
 }
-
 
 ::placeholder {
     font-size: 16px;
@@ -37,13 +34,13 @@ form {
 form label {
     display: block; /* Mostrar las etiquetas en bloques para que estén en una línea separada */
     margin-bottom: 5px; /* Margen inferior entre las etiquetas y los campos */
-    
 }
 
 /* Estilo para los campos de entrada */
 form input[type="text"],
 form input[type="password"],
-form textarea {
+form textarea,
+form input[type="email"] {
     width: 100%; /* Ancho completo del contenedor */
     padding: 10px; /* Espaciado interno */
     margin-bottom: 10px; /* Margen inferior */
@@ -52,8 +49,9 @@ form textarea {
     box-sizing: border-box; /* Incluir el borde y el relleno en el ancho total */
 }
 
-/* Estilo para el botón de inicio de sesión */
-#loginbt {
+/* Estilo para el botón de inicio de sesión y registro */
+#loginbt,
+#registro {
     width: 100%; /* Ancho completo del contenedor */
     padding: 10px; /* Espaciado interno */
     margin-top: 10px; /* Margen superior */
@@ -71,13 +69,19 @@ form textarea {
     margin-top: 5px; /* Margen superior */
 }
 
+/* Estilos para los enlaces */
+a {
+    color: #007bff; /* Color del enlace */
+    text-decoration: none; /* Sin subrayado */
+}
 
+a:hover {
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+}
 
 @media only screen and (max-width: 768px) {
-
     .box-area {
         margin: 0 10px;
-
     }
 
     .left-box {
@@ -88,5 +92,4 @@ form textarea {
     .right-box {
         padding: 20px;
     }
-
 }
