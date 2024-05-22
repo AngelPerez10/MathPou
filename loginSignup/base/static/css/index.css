@@ -56,9 +56,6 @@ body.dark{
     height: 95%; /* Ajusta la altura según sea necesario */
 }
 
-
-
-
 ::-webkit-scrollbar {
     width: 8px;
 }
