@@ -40,6 +40,10 @@ INSTALLED_APPS = [
     'base',
 ]
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "home"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -124,5 +128,8 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+LOGIN_URL = 'base:login'
 LOGIN_REDIRECT_URL = "base:index"
 LOGOUT_REDIRECT_URL = "base:home"
+
+
