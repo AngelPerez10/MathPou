@@ -1,0 +1,110 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+#navbar {
+   
+    padding: 10px;
+}
+
+.dash-content {
+    padding: 20px;
+    margin-left: 250px;
+}
+
+/* Estilos para el título de la sección */
+.overview .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.overview .title i {
+    font-size: 24px;
+    color: #007bff00;
+    margin-right: 10px;
+}
+
+.overview .title .text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Estilos para las cajas de información */
+.boxes {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 calc(30% - 20px); /* Ajusta el tamaño de las cajas */
+    min-width: 250px; /* Ancho mínimo para las cajas */
+    position: relative; /* Posicionamiento relativo para el hover */
+    transition: transform 0.3s;
+}
+
+/* Colores específicos para cada caja */
+.box1 {
+    background-color: #e7f3fe; /* Azul claro */
+}
+
+.box2 {
+    background-color: #fef3e7; /* Amarillo claro */
+}
+
+.box3 {
+    background-color: #e8f5e9; /* Verde claro */
+}
+
+.box:hover {
+    transform: translateY(-5px);
+}
+
+.icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-align: center; /* Centra el icono */
+}
+
+.info {
+    display: none; /* Oculta la información por defecto */
+    margin-top: 10px; /* Espacio entre el icono y la información */
+}
+
+/* Mostrar información al pasar el mouse */
+.box:hover .info {
+    display: block; /* Muestra la información al pasar el mouse */
+}
+
+.box .text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.box p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Estilos de medios (Responsive) */
+@media (max-width: 768px) {
+    .boxes {
+        flex-direction: column;
+    }
+
+    .box {
+        margin: 10px 0;
+    }
+}

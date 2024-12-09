@@ -1,0 +1,56 @@
+
+<nav id="sidebar">
+    <div class="logo-name">
+        <span class="logo_name">MathPou</span>
+    </div>
+
+    <div class="menu-items">
+        
+        <ul class="nav-links">
+            <li><a href="{% url 'base:index' %}">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Inicio</span>
+                </a></li>
+
+            <li><a href="{% url 'base:prueba-grafica' %}">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="link-name">Prueba Grafica</span>
+                </a></li>
+
+            <li><a href="{% url 'base:show-signal-data' %}">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Ejemplos</span>
+                </a></li>
+
+            <li><a href="{% url 'base:signal-data' %}">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Verificar Datos</span>
+                </a></li>
+
+            <li><a href="{% url 'base:prueba-data' %}">
+                    <i class="uil uil-comment-exclamation"></i>
+                    <span class="link-name">Tabla Prueba</span>
+                </a></li>
+        </ul>
+
+        <ul class="logout-mode">
+            <li><a href="{% url 'base:home' %}">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Cerrar Sesión</span>
+                </a>
+            </li>
+
+            <li class="mode">
+                <a href="#" id="modeToggle">
+                    <i class="uil uil-moon"></i>
+                    <span class="link-name">Modo Oscuro</span>
+                </a>
+                <div class="mode-toggle">
+                    <span class="switch"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+</nav>
+

@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>MathPou</title>
+</head>
+<body>
+    <div id="navbar">
+        {% block navbar %}
+        {% include 'navbar.html' %}
+        {% endblock %}
+    </div>
+
+    {% block content %}
+    <div class="dash-content">
+        <div class="overview">
+            <div class="title">
+                <i class="uil uil-chart-line"></i>
+                <span class="text">Tipos de señales de pulso</span>
+            </div>
+            <div class="boxes">
+                <div class="box box1">
+                    <div class="icon"><i class="fas fa-wave-square"></i></div>
+                    <div class="text">Pulso cuadrado</div>
+                    <p>Las señales cuadradas son básicamente señales que pasan de un estado a otro de tensión, a intervalos regulares, en un tiempo muy reducido. 
+                        Son utilizadas usualmente para probar amplificadores (esto es debido a que este tipo de señales contienen en sí mismas todas las frecuencias).
+                    </p>
+                </div>
+                <div class="box box2">
+                    <div class="icon"><i class="fas fa-chart-area"></i></div>
+                    <div class="text">Pulso triangular</div>
+                    <p>Un pulso triangular es un tipo de señal eléctrica o electrónica que, como su nombre indica, tiene una forma similar a un triángulo equilátero. Se caracteriza por
+                        tener dos rampas lineales: una ascendente y otra descendente, que conectan dos niveles de voltaje diferentes.
+                    </p>
+                </div>
+                <div class="box box3">
+                    <div class="icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="text">Pulso combinado</div>
+                    <p>Son aquellas que se forman a partir de la unión o superposición de dos o más señales de pulso individuales. Cada una de estas señales 
+                        individuales puede tener diferentes características como amplitud, duración, forma de onda y frecuencia.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/pulso.js' %}"></script>
+</body>
+</html>
+x

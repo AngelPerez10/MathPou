@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/prueba_data.css' %}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>MathPou</title>
+</head>
+<body>
+    
+    <div id="navbar">
+        {% block navbar %}
+        {% include 'navbar.html' %}
+        {% endblock %}
+    </div>
+
+    {% block content %}
+    <div class="container">
+        <div class="form_and_graph">
+            <h1>Datos para gráfica</h1>
+
+            <div id="inputs-container">
+                {% csrf_token %}
+                <div class="inputs_charts_Amplietudes">
+                    <label for="amplitud">Amplitud:</label>
+                    <input type="number" name="amplitud" class="amplitud">
+                </div>
+
+                <div class="inputs_charts_Tiempos">
+                    <label for="tiempo">Tiempo:</label>
+                    <input type="number" name="tiempo" class="tiempo">
+                </div>
+
+                <div class="button_create_new">
+                    <button type="button" id="crear">Crear</button>
+                    <button type="button" id="btn_generar">Generar gráfica</button>
+                    <button type="button" id="clear">Limpiar</button>
+                </div>
+            </div>
+
+            <div id="plot-container">
+                <!-- El lienzo para la gráfica se creará aquí -->
+            </div>
+        </div>
+    </div>
+    {% endblock content %}
+
+    <!-- Referencias a p5.js y otras librerías -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/prueba_data.js' %}"></script>
+
+</body>
+</html>
