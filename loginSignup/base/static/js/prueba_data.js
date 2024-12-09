@@ -43,13 +43,23 @@ document.getElementById('crear').addEventListener('click', function() {
     var inputsTiempo = document.querySelectorAll('.tiempo');
     for (var i = 0; i < inputsAmplitud.length; i++) {
         if (inputsAmplitud[i].value.trim() === '' || inputsTiempo[i].value.trim() === '') {
-            alert("Por favor, llene todos los campos antes de crear nuevos inputs.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos Vacíos',
+                text: 'Por favor, llene todos los campos antes de crear nuevos inputs.',
+                confirmButtonText: 'Entendido'
+            });
             return;
         }
     }
 
     if (numInputs >= 3) {
-        alert("Se ha alcanzado el límite de 3 conjuntos de campos de entrada.");
+        Swal.fire({
+            icon: 'error',
+            title: 'Límite Alcanzado',
+            text: 'Se ha alcanzado el límite de 3 conjuntos de campos de entrada.',
+            confirmButtonText: 'Cerrar'
+        });
         return;
     }
 
@@ -73,10 +83,16 @@ document.getElementById('btn_generar').addEventListener('click', function() {
     var inputsTiempo = document.querySelectorAll('.tiempo');
     for (var i = 0; i < inputsAmplitud.length; i++) {
         if (inputsAmplitud[i].value.trim() === '' || inputsTiempo[i].value.trim() === '') {
-            alert("Por favor, llenar los campos para generar grafica.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Faltan Datos',
+                text: 'Por favor, llenar todos los campos antes de generar la gráfica.',
+                confirmButtonText: 'Entendido'
+            });
             return;
         }
     }
+
     fetch('/calculate_signal_of_prueba_grafica/', {
         method: 'POST',
         headers: {
@@ -105,15 +121,27 @@ document.getElementById('btn_generar').addEventListener('click', function() {
 
             drawGraph();
         } else {
-            console.error('No se recibió una señal en la respuesta.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error en el Backend',
+                text: 'No se recibió una señal válida en la respuesta.',
+                confirmButtonText: 'Cerrar'
+            });
         }
     })
     .catch(error => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de Conexión',
+            text: `Hubo un problema al conectarse al servidor: ${error.message}`,
+            confirmButtonText: 'Cerrar'
+        });
         console.error('Error:', error);
     });
 
     console.log("Botón de generar presionado:", matriz);
 });
+
 
 function setup() {
     createCanvas(800, 400).parent('plot-container');

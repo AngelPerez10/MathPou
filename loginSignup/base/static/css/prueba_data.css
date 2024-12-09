@@ -1,25 +1,39 @@
-/* Estilos generales */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente más moderna */
-    background-color: #e8f0f4; /* Color de fondo más suave */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e8f0f4;
     margin: 0;
-    padding: 40px; /* Un poco más de espacio en los bordes */
+    padding: 40px;
 }
 
 .container {
-    width: 80%; /* Ajuste del contenedor para mayor consistencia */
-    margin: 0 auto; /* Centrado automático */
+    width: 80%;
+    margin: 0 auto;
     padding: 30px;
     background-color: #ffffff;
-    border-radius: 12px; /* Bordes más redondeados */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra más suave y difusa */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
-    color: #2c3e50; /* Color más elegante para el texto */
+    color: #2c3e50;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     margin-bottom: 30px;
-    font-size: 2rem; /* Tamaño de fuente mayor para el encabezado */
+    position: relative;
+    padding-bottom: 10px;
+}
+
+h1::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #3498db, #2ecc71);
+    margin: 10px auto 0;
+    border-radius: 2px;
 }
 
 .form_and_graph {
@@ -41,23 +55,23 @@ h1 {
 }
 
 label {
-    font-size: 16px; /* Tamaño de fuente un poco mayor */
-    color: #34495e; /* Color más oscuro y elegante */
+    font-size: 16px;
+    color: #34495e;
     margin-bottom: 8px;
 }
 
 input[type="number"] {
     padding: 12px;
-    font-size: 16px; /* Fuente más grande */
-    border: 1px solid #bdc3c7; /* Color de borde más suave */
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
     border-radius: 6px;
-    background-color: #f7f9fb; /* Fondo más claro para los inputs */
+    background-color: #f7f9fb;
     width: 100%;
-    transition: border-color 0.3s ease-in-out; /* Transición suave para el borde */
+    transition: border-color 0.3s ease-in-out;
 }
 
 input[type="number"]:focus {
-    border-color: #3498db; /* Color de borde cuando el input está enfocado */
+    border-color: #3498db;
     outline: none;
 }
 
@@ -71,38 +85,37 @@ button {
     padding: 12px 20px;
     font-size: 16px;
     color: #fff;
-    background-color: #3498db; /* Azul brillante */
+    background-color: #3498db;
     border: none;
-    border-radius: 30px; /* Bordes muy redondeados para un efecto de botón más ovalado */
+    border-radius: 50px;
     cursor: pointer;
-    transition: all 0.3s ease; /* Transición suave para todos los cambios */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra sutil */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 button:hover {
-    background-color: #2980b9; /* Azul más oscuro al pasar el mouse */
-    transform: translateY(-4px); /* Eleva el botón para un efecto de "flotación" */
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Sombra más prominente */
+    background-color: #2980b9;
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 button:active {
-    background-color: #1c5989; /* Azul aún más oscuro cuando el botón está presionado */
-    transform: translateY(-2px); /* Menos elevación cuando se presiona */
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15); /* Sombra sutil cuando se presiona */
+    background-color: #1c5989;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
 button:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4); /* Efecto de enfoque con un borde azul brillante */
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
 }
-
 
 #plot-container {
     margin-top: 40px;
     width: 100%;
     height: 450px;
-    border: 1px solid #bdc3c7; /* Borde más suave */
-    border-radius: 12px; /* Bordes redondeados */
+    border: 1px solid #bdc3c7;
+    border-radius: 12px;
     background-color: transparent;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra más difusa */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
