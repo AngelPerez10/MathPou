@@ -10,7 +10,6 @@ import base64
 from django.http import JsonResponse
 import json
 
-@login_required
 def home(request):
     return render(request, "home.html", {})
 

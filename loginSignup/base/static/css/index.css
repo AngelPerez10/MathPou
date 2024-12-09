@@ -1,109 +1,187 @@
+/* Importar fuente */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
 /* Estilos generales */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-#navbar {
-   
-    padding: 10px;
+/* Variables globales */
+:root {
+    --primary-color: #0E4BF1;
+    --panel-color: #FFF;
+    --text-color: #000;
+    --black-light-color: #707070;
+    --border-color: #e6e5e5;
+    --toggle-color: #DDD;
+    --box1-color: #4DA3FF;
+    --box2-color: #FFE6AC;
+    --box3-color: #E7D1FC;
+    --title-icon-color: #FFF;
+
+    /* Transiciones */
+    --tran-05: all 0.5s ease;
+    --tran-03: all 0.3s ease;
 }
 
+/* Modo oscuro */
+body.dark {
+    --primary-color: #3A3B3C;
+    --panel-color: #242526;
+    --text-color: #CCC;
+    --black-light-color: #CCC;
+    --border-color: #4D4C4C;
+    --toggle-color: #FFF;
+    --box1-color: #3A3B3C;
+    --box2-color: #3A3B3C;
+    --box3-color: #3A3B3C;
+    --title-icon-color: #CCC;
+}
+
+/* Estilo del cuerpo */
+body {
+    min-height: 100vh;
+    background-color: var(--primary-color);
+    transition: var(--tran-05);
+}
+
+/* Barra de navegación */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    padding: 10px 14px;
+    background-color: var(--panel-color);
+    border-right: 1px solid var(--border-color);
+    transition: var(--tran-05);
+}
+nav.close {
+    width: 73px;
+}
+nav .logo-name {
+    display: flex;
+    align-items: center;
+}
+nav .logo_name {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-left: 14px;
+    transition: var(--tran-05);
+}
+nav.close .logo_name {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Enlaces del menú */
+.menu-items {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.menu-items li {
+    list-style: none;
+}
+.menu-items li a {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    text-decoration: none;
+    position: relative;
+}
+.nav-links li a:hover:before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+body.dark li a:hover:before {
+    background-color: var(--text-color);
+}
+.menu-items li a i {
+    font-size: 24px;
+    min-width: 45px;
+    color: var(--black-light-color);
+}
+.menu-items li a .link-name {
+    font-size: 18px;
+    color: var(--black-light-color);
+    transition: var(--tran-05);
+}
+body.dark .menu-items li a .link-name {
+    color: var(--text-color);
+}
+
+/* Dashboard */
+.dashboard {
+    position: relative;
+    left: 250px;
+    background-color: var(--panel-color);
+    min-height: 100vh;
+    width: calc(100% - 250px);
+    padding: 10px 14px;
+    transition: var(--tran-05);
+}
+nav.close ~ .dashboard {
+    left: 73px;
+    width: calc(100% - 73px);
+}
+
+/* Contenido de dashboard */
 .dash-content {
     padding: 20px;
     margin-left: 250px;
 }
 
-/* Estilos para el título de la sección */
-.overview .title {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.overview .title i {
-    font-size: 24px;
-    color: #007bff00;
-    margin-right: 10px;
-}
-
-.overview .title .text {
-    font-size: 20px;
-    font-weight: bold;
-    color: #333;
-}
-
-/* Estilos para las cajas de información */
+/* Cajas de información */
 .boxes {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
-
 .box {
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin: 10px;
-    flex: 1 1 calc(30% - 20px); /* Ajusta el tamaño de las cajas */
-    min-width: 250px; /* Ancho mínimo para las cajas */
-    position: relative; /* Posicionamiento relativo para el hover */
+    flex: 1 1 calc(30% - 20px);
+    min-width: 250px;
+    background-color: var(--panel-color);
     transition: transform 0.3s;
 }
-
-/* Colores específicos para cada caja */
 .box1 {
-    background-color: #e7f3fe; /* Azul claro */
+    background-color: var(--box1-color);
 }
-
 .box2 {
-    background-color: #fef3e7; /* Amarillo claro */
+    background-color: var(--box2-color);
 }
-
 .box3 {
-    background-color: #e8f5e9; /* Verde claro */
+    background-color: var(--box3-color);
 }
-
 .box:hover {
     transform: translateY(-5px);
 }
-
-.icon {
-    font-size: 36px;
-    margin-bottom: 10px;
-    text-align: center; /* Centra el icono */
-}
-
-.info {
-    display: none; /* Oculta la información por defecto */
-    margin-top: 10px; /* Espacio entre el icono y la información */
-}
-
-/* Mostrar información al pasar el mouse */
-.box:hover .info {
-    display: block; /* Muestra la información al pasar el mouse */
-}
-
 .box .text {
     font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: var(--text-color);
 }
 
-.box p {
-    font-size: 14px;
-    color: #555;
-}
-
-/* Estilos de medios (Responsive) */
+/* Estilos responsivos */
 @media (max-width: 768px) {
     .boxes {
         flex-direction: column;
     }
-
     .box {
         margin: 10px 0;
     }
