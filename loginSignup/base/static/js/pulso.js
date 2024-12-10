@@ -18,7 +18,7 @@ function setup() {
     barCanvas = createGraphics(800, 150); // Gráfico para las barras
 
     let mainCanvas = createCanvas(800, 700); // Canvas principal con más altura
-    mainCanvas.parent('canvas-container'); // Asignar el canvas al contenedor principal
+    mainCanvas.parent('canvas-container'); // Asignar el canvas al contenedor principal si
 
     textSize(15);
 
