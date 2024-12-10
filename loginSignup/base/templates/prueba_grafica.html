@@ -57,8 +57,6 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h1>Gráficas de Ondas y Suma</h1>
-                <h6>Instrucciones:</h6>
-                <button type="button" id="btn_instruction"><i class="question-mark-6"></i></button>
             </div>
         </div>
 
@@ -70,36 +68,7 @@
                 </div>
             </div>
         </div>
-
-        <div id="sum-formula">
-            <p>
-                Fórmula de la suma de ondas:
-                \( y_{\text{suma}}(x) = \sum_{i=0}^{n-1} A[i] \cdot \sin\left(2 \pi \cdot (i + 1) \cdot
-                \frac{x}{\text{width}} \cdot 2\right) \)
-            </p>
-        </div>
     </div>
-    
-
-    <script>
-
-        function updateFormula() {
-            let formula = '';
-
-            for (let i = 0; i < maxHarmonics; i++) {
-                formula += `\\( A${i + 1} = ${bars[i].amplitude.toFixed(2)} \\) <br>`; // Muestra la amplitud de cada armónica
-            }
-            formula += "<br>Fórmula de la suma de ondas: <br>";
-            formula += `\\( y_{\text{suma}}(x) = \\sum_{i=0}^{${maxHarmonics - 1}} A[i] \\cdot \\sin\\left(2 \\pi \\cdot (i + 1) \\cdot \\frac{${xValue}}{\\text{width}} \\cdot 2\\right) \\)`;
-
-            // Actualiza el contenido HTML de la fórmula
-            document.getElementById('sum-formula').innerHTML = formula;
-
-            // Renderiza la fórmula usando MathJax
-            MathJax.typeset();
-        }
-
-    </script>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
