@@ -45,20 +45,8 @@ sidebarToggle.addEventListener("click", () => {
 
 const sizeToggleSwitch = document.querySelector(".size-toggle-switch");
 
-// Manejar el evento click en el interruptor de aumento de tamaño
 sizeToggleSwitch.addEventListener("click", () => {
-    // Toggle class 'active' para el switch
     sizeToggleSwitch.classList.toggle("active");
-
-    // Obtener el cuerpo del documento
-    const body = document.querySelector("body");
-
-    // Verificar si el interruptor está activo
-    if (sizeToggleSwitch.classList.contains("active")) {
-        // Aumentar el tamaño de la fuente
-        body.style.fontSize = "20px"; // Puedes ajustar el tamaño de la fuente según tus necesidades
-    } else {
-        // Restaurar el tamaño de la fuente a su valor original
-        body.style.fontSize = ""; // Esto eliminará cualquier tamaño de fuente establecido previamente
-    }
+    document.body.style.fontSize = sizeToggleSwitch.classList.contains("active") ? "20px" : "";
 });
+
