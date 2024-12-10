@@ -96,16 +96,18 @@ def grafica_example_calculate(amplitudes, times):
         'time': list(t),
         'signal': list(f)
     }
+def calculate_signal_data(matriz):
+    A = [row[0] for row in matriz]  # Amplitudes
+    at = [row[1] for row in matriz]  # Tiempos
+    periods = [row[2] for row in matriz]  # Periodos (todos son el mismo valor)
 
-
-def calculate_signal_data():
-    A = [0, 1, -2, 10]
-    at = [0, 1, 3, 6]
     npulses = len(A) - 1
-    T = at[npulses]
-    w0 = 2 * np.pi / T
+    
+    # Tomamos el primer valor de la lista de periods (ya que todos son iguales)
+    T = periods[1]  # Usamos el mismo periodo para toda la señal
+    w0 = 2 * np.pi / T  # Frecuencia angular
+    
     a0 = 0
-
     for k in range(1, npulses + 1):
         a0 += (2 / T) * A[k] * (at[k] - at[k-1])
 
@@ -130,58 +132,22 @@ def calculate_signal_data():
         'signal': list(f)
     }
 
-
-
-
 def calculate_signal_of_prueba_grafica(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
             matriz = data.get('datos', [])
-            
-            # Verifica que los datos sean una lista de listas de números
-            if not isinstance(matriz, list) or not all(isinstance(row, list) and len(row) == 2 for row in matriz):
+
+            # Verifica que los datos sean una lista de listas con tres números
+            if not isinstance(matriz, list) or not all(isinstance(row, list) and len(row) == 3 for row in matriz):
                 return HttpResponseBadRequest("Datos de entrada no válidos.")
             
             # Convertir los datos de la matriz a flotantes
             matriz = [[float(value) for value in row] for row in matriz]
 
-            def calculate_signal_data(matriz):
-                A = [row[0] for row in matriz]
-                at = [row[1] for row in matriz]
-
-                npulses = len(A) - 1
-                T = at[npulses]
-                w0 = 2 * np.pi / T
-                a0 = 0
-
-                for k in range(1, npulses + 1):
-                    a0 += (2 / T) * A[k] * (at[k] - at[k-1])
-
-                f = a0 / 2
-                t = np.linspace(0, 2 * T, 1024 * 2 * int(np.pi))
-
-                an_values = []
-                bn_values = []
-                for n in range(1, 101):
-                    an, bn = 0, 0
-                    for k in range(1, npulses + 1):
-                        an += (1 / (n * np.pi)) * A[k] * (np.sin(n * w0 * at[k]) - np.sin(n * w0 * at[k-1]))
-                        bn -= (1 / (n * np.pi)) * A[k] * (np.cos(n * w0 * at[k]) - np.cos(n * w0 * at[k-1]))
-                    an_values.append(an)
-                    bn_values.append(bn)
-                    f += an * np.cos(n * w0 * t) + bn * np.sin(n * w0 * t)
-
-                return {
-                    'amplitudes': an_values,
-                    'phases': bn_values,
-                    'time': list(t),
-                    'signal': list(f)
-                }
-            
             # Calcular los datos de la señal
             result = calculate_signal_data(matriz)
-            
+
             # Retornar los datos calculados en formato JSON
             return JsonResponse(result)
 

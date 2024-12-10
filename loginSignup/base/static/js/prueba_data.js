@@ -1,18 +1,20 @@
-var matriz = [[0, 0]];  // Siempre comienza con [0,0]
+var matriz = [[0, 0, 0]];  // Siempre comienza con [0,0]
 let amplitudes, phases, time, signal;
 let minX, maxX, minY, maxY;
 
 // Función para actualizar la matriz con los valores actuales
 function actualizarMatriz() {
-    matriz = [[0, 0]];  // Reinicia la matriz con [0,0]
+    matriz = [[0, 0, 0]];  // Reinicia la matriz con [0,0,0]
     var inputsAmplitud = document.querySelectorAll('.amplitud');
     var inputsTiempo = document.querySelectorAll('.tiempo');
+    var periodo = parseFloat(document.querySelector('.periodo').value);  // Obtiene el único periodo
 
     for (var i = 0; i < inputsAmplitud.length; i++) {
-        matriz.push([parseFloat(inputsAmplitud[i].value), parseFloat(inputsTiempo[i].value)]);
+        matriz.push([parseFloat(inputsAmplitud[i].value), parseFloat(inputsTiempo[i].value), periodo]);
     }
     console.log("Matriz actualizada:", matriz);  // Para depurar
 }
+
 
 document.getElementById('clear').addEventListener('click', function() {
     var inputsAmplitud = document.querySelectorAll('.amplitud');
