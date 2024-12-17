@@ -10,10 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
     <title>MathPou</title>
 </head>
 <body>
@@ -41,20 +44,33 @@
                     <input type="number" name="tiempo" class="tiempo">
                 </div>
 
-                <div class="inputs_charts_Periodo">
-                    <label for="periodo">Periodo:</label>
-                    <input type="number" name="periodo" class="periodo">
-                </div>
+
                 <div class="button_create_new">
                     <button type="button" id="crear">Crear</button>
                     <button type="button" id="btn_generar">Generar gráfica</button>
                     <button type="button" id="clear">Limpiar</button>
                 </div>
             </div>
-
-            <div id="plot-container">
-                <!-- El lienzo para la gráfica se creará aquí -->
-            </div>
+            <div class="conteinerdata" id="conteinerdata"> 
+                <div id="formulas" class="formulas">
+                    <p>Fórmula para \( a_n \):</p>
+                    <p>\[
+                    a_n = \frac{1}{n \pi} \sum_{k=1}^{N} A[k] \left( \sin(n w_0 t_k) - \sin(n w_0 t_{k-1}) \right)
+                    \]</p>
+                    
+                    <p>Fórmula para \( b_n \):</p>
+                    <p>\[
+                    b_n = -\frac{1}{n \pi} \sum_{k=1}^{N} A[k] \left( \cos(n w_0 t_k) - \cos(n w_0 t_{k-1}) \right)
+                    \]</p>
+                </div>
+                <div id="data-container" style="margin-top: 20px;">
+                    <h3>Datos de la Matriz:</h3>
+                    <pre id="matriz-data"></pre>
+                </div>
+                
+                <div id="plot-container">
+                    <!-- La gráfica se generará aquí -->
+                </div>
         </div>
     </div>
     

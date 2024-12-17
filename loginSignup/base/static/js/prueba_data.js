@@ -1,20 +1,18 @@
-var matriz = [[0, 0, 0]];  // Siempre comienza con [0,0]
+var matriz = [[0, 0]];  // Siempre comienza con [0,0]
 let amplitudes, phases, time, signal;
 let minX, maxX, minY, maxY;
 
 // Función para actualizar la matriz con los valores actuales
 function actualizarMatriz() {
-    matriz = [[0, 0, 0]];  // Reinicia la matriz con [0,0,0]
+    matriz = [[0, 0]];  // Reinicia la matriz con [0,0]
     var inputsAmplitud = document.querySelectorAll('.amplitud');
     var inputsTiempo = document.querySelectorAll('.tiempo');
-    var periodo = parseFloat(document.querySelector('.periodo').value);  // Obtiene el único periodo
 
     for (var i = 0; i < inputsAmplitud.length; i++) {
-        matriz.push([parseFloat(inputsAmplitud[i].value), parseFloat(inputsTiempo[i].value), periodo]);
+        matriz.push([parseFloat(inputsAmplitud[i].value), parseFloat(inputsTiempo[i].value)]);
     }
     console.log("Matriz actualizada:", matriz);  // Para depurar
 }
-
 
 document.getElementById('clear').addEventListener('click', function() {
     var inputsAmplitud = document.querySelectorAll('.amplitud');
@@ -45,23 +43,13 @@ document.getElementById('crear').addEventListener('click', function() {
     var inputsTiempo = document.querySelectorAll('.tiempo');
     for (var i = 0; i < inputsAmplitud.length; i++) {
         if (inputsAmplitud[i].value.trim() === '' || inputsTiempo[i].value.trim() === '') {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Campos Vacíos',
-                text: 'Por favor, llene todos los campos antes de crear nuevos inputs.',
-                confirmButtonText: 'Entendido'
-            });
+            alert("Por favor, llene todos los campos antes de crear nuevos inputs.");
             return;
         }
     }
 
     if (numInputs >= 3) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Límite Alcanzado',
-            text: 'Se ha alcanzado el límite de 3 conjuntos de campos de entrada.',
-            confirmButtonText: 'Cerrar'
-        });
+        alert("Se ha alcanzado el límite de 3 conjuntos de campos de entrada.");
         return;
     }
 
@@ -85,16 +73,10 @@ document.getElementById('btn_generar').addEventListener('click', function() {
     var inputsTiempo = document.querySelectorAll('.tiempo');
     for (var i = 0; i < inputsAmplitud.length; i++) {
         if (inputsAmplitud[i].value.trim() === '' || inputsTiempo[i].value.trim() === '') {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Faltan Datos',
-                text: 'Por favor, llenar todos los campos antes de generar la gráfica.',
-                confirmButtonText: 'Entendido'
-            });
+            alert("Por favor, llenar los campos para generar gráfica.");
             return;
         }
     }
-
     fetch('/calculate_signal_of_prueba_grafica/', {
         method: 'POST',
         headers: {
@@ -115,6 +97,8 @@ document.getElementById('btn_generar').addEventListener('click', function() {
             phases = data.phases;
             time = data.time;
             signal = data.signal;
+            const T = data.T;  // Obtener el valor de T
+            const w0 = data.w0;  // Obtener el valor de w0
 
             minX = Math.min(...time);
             maxX = Math.max(...time);
@@ -122,27 +106,43 @@ document.getElementById('btn_generar').addEventListener('click', function() {
             maxY = Math.max(...signal);
 
             drawGraph();
+
+            // Mostrar los valores de T y w0 en la interfaz
+            displayMatrixData(matriz, T, w0);
         } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error en el Backend',
-                text: 'No se recibió una señal válida en la respuesta.',
-                confirmButtonText: 'Cerrar'
-            });
+            console.error('No se recibió una señal en la respuesta.');
         }
     })
     .catch(error => {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error de Conexión',
-            text: `Hubo un problema al conectarse al servidor: ${error.message}`,
-            confirmButtonText: 'Cerrar'
-        });
         console.error('Error:', error);
     });
 
     console.log("Botón de generar presionado:", matriz);
 });
+
+// Función para mostrar los datos de la matriz, T y w0 en el contenedor
+function displayMatrixData(matriz, T, w0) {
+    const matrizContainer = document.getElementById('matriz-data');
+    
+    // Crear una representación más amigable de la matriz
+    let matrizHtml = '<table style="border: 1px solid black; border-collapse: collapse;">';
+    matrizHtml += '<tr><th>Amplitud</th><th>Tiempo</th></tr>';
+    
+    for (let i = 1; i < matriz.length; i++) {
+        matrizHtml += `<tr><td style="border: 1px solid black; padding: 5px;">${matriz[i][0]}</td><td style="border: 1px solid black; padding: 5px;">${matriz[i][1]}</td></tr>`;
+    }
+
+    matrizHtml += '</table>';
+
+    // Mostrar la matriz, periodo (T) y frecuencia angular (w0)
+    matrizContainer.innerHTML = `
+        <strong>Datos de la matriz:</strong><br>
+        ${matrizHtml}<br>
+        <strong>Periodo (T):</strong> ${T}<br>
+        <strong>Frecuencia angular (w0):</strong> ${w0}
+    `;
+}
+
 
 
 function setup() {

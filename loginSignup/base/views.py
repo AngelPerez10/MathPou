@@ -95,21 +95,21 @@ def grafica_example_calculate(amplitudes, times):
         'time': list(t),
         'signal': list(f)
     }
+# Función para calcular la señal, amplitudes, fases, etc.
 def calculate_signal_data(matriz):
     A = [row[0] for row in matriz]  # Amplitudes
     at = [row[1] for row in matriz]  # Tiempos
-    periods = [row[2] for row in matriz]  # Periodos (todos son el mismo valor)
-
-    npulses = len(A) - 1
+    npulses = len(A) - 1  # Número de pulsos (uno menos que la cantidad de amplitudes)
     
-    # Tomamos el primer valor de la lista de periods (ya que todos son iguales)
-    T = periods[1]  # Usamos el mismo periodo para toda la señal
+    # Calcular el periodo T y la frecuencia angular w0
+    T = at[npulses]  # El último tiempo como el periodo
     w0 = 2 * np.pi / T  # Frecuencia angular
-    
+
     a0 = 0
     for k in range(1, npulses + 1):
         a0 += (2 / T) * A[k] * (at[k] - at[k-1])
 
+    # Calcular la señal base
     f = a0 / 2
     t = np.linspace(0, 2 * T, 1024 * 2 * int(np.pi))
 
@@ -124,29 +124,33 @@ def calculate_signal_data(matriz):
         bn_values.append(bn)
         f += an * np.cos(n * w0 * t) + bn * np.sin(n * w0 * t)
 
+    # Retornar los resultados de las amplitudes, fases, etc.
     return {
         'amplitudes': an_values,
         'phases': bn_values,
         'time': list(t),
-        'signal': list(f)
+        'signal': list(f),
+        'T': T,  # El valor de T
+        'w0': w0  # El valor de w0
     }
 
+# Vista para recibir los datos y calcular la señal
 def calculate_signal_of_prueba_grafica(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
             matriz = data.get('datos', [])
-
-            # Verifica que los datos sean una lista de listas con tres números
-            if not isinstance(matriz, list) or not all(isinstance(row, list) and len(row) == 3 for row in matriz):
+            
+            # Verifica que los datos sean una lista de listas de números (amplitudes y tiempos)
+            if not isinstance(matriz, list) or not all(isinstance(row, list) and len(row) == 2 for row in matriz):
                 return HttpResponseBadRequest("Datos de entrada no válidos.")
             
             # Convertir los datos de la matriz a flotantes
             matriz = [[float(value) for value in row] for row in matriz]
 
-            # Calcular los datos de la señal
+            # Calcular los datos de la señal usando la función definida
             result = calculate_signal_data(matriz)
-
+            
             # Retornar los datos calculados en formato JSON
             return JsonResponse(result)
 
