@@ -41,15 +41,28 @@ document.getElementById('crear').addEventListener('click', function() {
 
     var inputsAmplitud = document.querySelectorAll('.amplitud');
     var inputsTiempo = document.querySelectorAll('.tiempo');
+
     for (var i = 0; i < inputsAmplitud.length; i++) {
         if (inputsAmplitud[i].value.trim() === '' || inputsTiempo[i].value.trim() === '') {
-            alert("Por favor, llene todos los campos antes de crear nuevos inputs.");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Campos incompletos',
+                text: 'Por favor, llene todos los campos antes de crear nuevos.',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Entendido'
+            });
             return;
         }
     }
 
     if (numInputs >= 3) {
-        alert("Se ha alcanzado el límite de 3 conjuntos de campos de entrada.");
+        Swal.fire({
+            icon: 'info',
+            title: 'Límite alcanzado',
+            text: 'Se ha alcanzado el límite de 3 conjuntos de campos de entrada.',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        });
         return;
     }
 
@@ -64,19 +77,28 @@ document.getElementById('crear').addEventListener('click', function() {
     container.insertBefore(nuevaAmplitud, container.lastElementChild);
     container.insertBefore(nuevoTiempo, container.lastElementChild);
 
-    actualizarMatriz();  // Actualiza la matriz después de crear los nuevos inputs
+    actualizarMatriz();
 });
+
 
 document.getElementById('btn_generar').addEventListener('click', function() {
     actualizarMatriz();
     var inputsAmplitud = document.querySelectorAll('.amplitud');
     var inputsTiempo = document.querySelectorAll('.tiempo');
+
     for (var i = 0; i < inputsAmplitud.length; i++) {
         if (inputsAmplitud[i].value.trim() === '' || inputsTiempo[i].value.trim() === '') {
-            alert("Por favor, llenar los campos para generar gráfica.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Por favor, llene los campos para generar la gráfica.',
+                confirmButtonColor: '#e74c3c',
+                confirmButtonText: 'OK'
+            });
             return;
         }
     }
+
     fetch('/calculate_signal_of_prueba_grafica/', {
         method: 'POST',
         headers: {
@@ -97,8 +119,8 @@ document.getElementById('btn_generar').addEventListener('click', function() {
             phases = data.phases;
             time = data.time;
             signal = data.signal;
-            const T = data.T;  // Obtener el valor de T
-            const w0 = data.w0;  // Obtener el valor de w0
+            const T = data.T;
+            const w0 = data.w0;
 
             minX = Math.min(...time);
             maxX = Math.max(...time);
@@ -106,18 +128,27 @@ document.getElementById('btn_generar').addEventListener('click', function() {
             maxY = Math.max(...signal);
 
             drawGraph();
-
-            // Mostrar los valores de T y w0 en la interfaz
             displayMatrixData(matriz, T, w0);
         } else {
-            console.error('No se recibió una señal en la respuesta.');
+            Swal.fire({
+                icon: 'warning',
+                title: 'Advertencia',
+                text: 'No se recibió una señal en la respuesta.',
+                confirmButtonColor: '#f39c12',
+                confirmButtonText: 'Revisar'
+            });
         }
     })
     .catch(error => {
-        console.error('Error:', error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de red',
+            text: 'Hubo un problema al intentar procesar los datos.',
+            footer: `<p>Detalles: ${error.message}</p>`,
+            confirmButtonColor: '#e74c3c',
+            confirmButtonText: 'Entendido'
+        });
     });
-
-    console.log("Botón de generar presionado:", matriz);
 });
 
 // Función para mostrar los datos de la matriz, T y w0 en el contenedor
