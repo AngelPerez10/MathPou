@@ -51,18 +51,21 @@
                     <button type="button" id="clear">Limpiar</button>
                 </div>
             </div>
-            <div class="conteinerdata" id="conteinerdata"> 
-                <div id="formulas" class="formulas">
-                    <p>Fórmula para \( a_n \):</p>
-                    <p>\[
+            <div id="formulas" class="formulas">
+                <p class="formula-title">Fórmula para \( a_n \):</p>
+                <p class="math-equation">
+                    \[
                     a_n = \frac{1}{n \pi} \sum_{k=1}^{N} A[k] \left( \sin(n w_0 t_k) - \sin(n w_0 t_{k-1}) \right)
-                    \]</p>
-                    
-                    <p>Fórmula para \( b_n \):</p>
-                    <p>\[
+                    \]
+                </p>
+                
+                <p class="formula-title">Fórmula para \( b_n \):</p>
+                <p class="math-equation">
+                    \[
                     b_n = -\frac{1}{n \pi} \sum_{k=1}^{N} A[k] \left( \cos(n w_0 t_k) - \cos(n w_0 t_{k-1}) \right)
-                    \]</p>
-                </div>
+                    \]
+                </p>
+            </div>            
                 <div id="data-container" style="margin-top: 20px;">
                     <h3>Datos de la Matriz:</h3>
                     <pre id="matriz-data"></pre>

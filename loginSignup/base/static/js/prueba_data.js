@@ -125,11 +125,11 @@ function displayMatrixData(matriz, T, w0) {
     const matrizContainer = document.getElementById('matriz-data');
     
     // Crear una representación más amigable de la matriz
-    let matrizHtml = '<table style="border: 1px solid black; border-collapse: collapse;">';
+    let matrizHtml = '<table>';
     matrizHtml += '<tr><th>Amplitud</th><th>Tiempo</th></tr>';
     
     for (let i = 1; i < matriz.length; i++) {
-        matrizHtml += `<tr><td style="border: 1px solid black; padding: 5px;">${matriz[i][0]}</td><td style="border: 1px solid black; padding: 5px;">${matriz[i][1]}</td></tr>`;
+        matrizHtml += `<tr><td>${matriz[i][0]}</td><td>${matriz[i][1]}</td></tr>`;
     }
 
     matrizHtml += '</table>';
@@ -142,6 +142,7 @@ function displayMatrixData(matriz, T, w0) {
         <strong>Frecuencia angular (w0):</strong> ${w0}
     `;
 }
+
 
 
 

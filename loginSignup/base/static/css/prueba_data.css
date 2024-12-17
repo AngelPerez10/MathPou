@@ -1,121 +1,271 @@
+/* Estilo general del cuerpo */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #e8f0f4;
-    margin: 0;
-    padding: 40px;
+    background: linear-gradient(to bottom right, #ffffff, #ffffff); /* Fondo degradado suave */
+    padding: 40px; /* Espaciado alrededor del cuerpo */
+    color: #000000; /* Color de texto principal */
 }
 
+/* Contenedor principal */
 .container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Ocupa el 90% del ancho de la pantalla */
+    max-width: 1000px; /* Ancho máximo */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 30px; /* Espaciado interno */
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    animation: fadeIn 1.2s ease-in-out; /* Aplica una animación de fade-in */
 }
 
+/* Estilo del título principal */
 h1 {
-    text-align: center;
-    color: #2c3e50;
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-    position: relative;
-    padding-bottom: 10px;
+    text-align: center; /* Centra el texto */
+    font-size: 2.8rem; /* Tamaño grande del texto */
+    color: #000000; /* Color oscuro del texto */
+    margin-bottom: 20px; /* Espaciado inferior */
+    text-transform: uppercase; /* Convierte el texto a mayúsculas */
+    letter-spacing: 2px; /* Espaciado entre letras */
+    position: relative; /* Necesario para el pseudo-elemento */
 }
 
+/* Línea decorativa debajo del título */
 h1::after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(90deg, #3498db, #2ecc71);
-    margin: 10px auto 0;
-    border-radius: 2px;
+    content: ""; /* Elemento vacío */
+    display: block; /* Lo hace visible como bloque */
+    width: 80px; /* Ancho de la línea */
+    height: 4px; /* Grosor de la línea */
+    margin: 10px auto 0; /* Centra la línea horizontalmente */
+    background: linear-gradient(to right, #3498db, #2ecc71); /* Degradado de colores */
+    border-radius: 2px; /* Bordes redondeados */
 }
 
+/* Contenedor del formulario y la gráfica */
 .form_and_graph {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+    display: flex; /* Usa Flexbox */
+    flex-direction: column; /* Apila elementos verticalmente */
+    gap: 25px; /* Espacio entre elementos */
 }
 
+/* Contenedor de las entradas del formulario */
 #inputs-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    display: grid; /* Usa Grid para organizar el formulario */
+    grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+    gap: 20px; /* Espacio entre las columnas */
 }
 
+/* Estilo para cada campo de entrada */
 .inputs_charts_Amplietudes,
 .inputs_charts_Tiempos {
-    display: flex;
-    flex-direction: column;
+    display: flex; /* Usa Flexbox */
+    flex-direction: column; /* Apila los elementos verticalmente */
 }
 
+/* Etiquetas del formulario */
 label {
-    font-size: 16px;
-    color: #34495e;
-    margin-bottom: 8px;
+    font-weight: bold; /* Texto en negrita */
+    margin-bottom: 8px; /* Espacio debajo del label */
+    color: #000000; /* Color del texto */
 }
 
+/* Campos de entrada */
 input[type="number"] {
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #bdc3c7;
-    border-radius: 6px;
-    background-color: #f7f9fb;
-    width: 100%;
-    transition: border-color 0.3s ease-in-out;
+    padding: 12px; /* Espaciado interno */
+    font-size: 1rem; /* Tamaño de la fuente */
+    border: 2px solid #dfe6e9; /* Borde de color gris claro */
+    border-radius: 8px; /* Bordes redondeados */
+    background: #f9fbfc; /* Color de fondo */
+    transition: all 0.3s ease; /* Transición suave para cambios */
 }
 
+/* Estilo de los campos de entrada al enfocarse */
 input[type="number"]:focus {
-    border-color: #3498db;
-    outline: none;
+    border-color: #3498db; /* Cambia el color del borde */
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.4); /* Agrega sombra azul */
+    outline: none; /* Elimina el contorno predeterminado */
 }
 
+/* Contenedor de botones */
 .button_create_new {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 25px;
+    grid-column: span 2; /* Ocupa dos columnas completas en el grid */
+    display: flex; /* Usa Flexbox */
+    justify-content: space-between; /* Distribuye los botones uniformemente */
+    margin-top: 15px; /* Espacio superior */
 }
 
+/* Estilo base para los botones */
 button {
-    padding: 12px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #3498db;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 12px 20px; /* Espaciado interno */
+    font-size: 1rem; /* Tamaño del texto */
+    font-weight: bold; /* Texto en negrita */
+    color: #fff; /* Texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 25px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor a una mano */
+    transition: all 0.3s ease-in-out; /* Transición suave */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra suave */
 }
 
-button:hover {
-    background-color: #2980b9;
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+/* Estilo específico para cada botón */
+button#crear {
+    background: #007bff; /* Verde */
+}
+
+button#crear:hover {
+    background: #0056b3; /* Verde más oscuro */
+    transform: scale(1.05); /* Agranda ligeramente el botón */
+}
+
+button#btn_generar {
+    background: #007bff; 
+}
+
+button#btn_generar:hover {
+    background: #0056b3; 
+    transform: scale(1.05);
+}
+
+button#clear {
+    background: #007bff;
+}
+
+button#clear:hover {
+    background: #0056b3; 
+    transform: scale(1.05);
 }
 
 button:active {
-    background-color: #1c5989;
-    transform: translateY(-2px);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    transform: scale(0.95); /* Hace más pequeño al hacer clic */
 }
 
-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4);
+/* Estilo para las fórmulas */
+#formulas {
+    background: #ffffff; /* Fondo suave y claro */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-top: 20px; /* Espacio superior */
+    font-family: 'Roboto', sans-serif; /* Fuente moderna */
 }
 
+/* Título de las fórmulas */
+.formula-title {
+    font-size: 1rem; /* Tamaño más pequeño para los títulos */
+    font-weight: bold; /* Negrita */
+    color: #000000; /* Color oscuro */
+    margin-bottom: 6px; /* Espacio inferior */
+    text-transform: uppercase; /* Convierte el texto a mayúsculas */
+    letter-spacing: 1px; /* Espaciado entre letras */
+    position: relative; /* Para la línea decorativa */
+}
+
+/* Línea decorativa debajo del título */
+.formula-title::after {
+    content: ""; /* Elemento vacío */
+    display: block; /* Lo hace visible como bloque */
+    width: 40px; /* Ancho de la línea */
+    height: 2px; /* Grosor de la línea */
+    margin-top: 4px; /* Espacio superior */
+    background: linear-gradient(to right, #3498db, #2ecc71); /* Degradado */
+    border-radius: 2px; /* Bordes redondeados */
+}
+
+/* Estilo para las ecuaciones matemáticas */
+.math-equation {
+    font-size: 1rem; /* Tamaño más pequeño para las ecuaciones */
+    color: #34495e; /* Color de texto */
+    margin: 10px 0; /* Espacio alrededor de las ecuaciones */
+    text-align: center; /* Centra la fórmula */
+    font-family: 'Times New Roman', Times, serif; /* Fuente clásica para ecuaciones */
+}
+
+/* Mejorar la legibilidad con un fondo suave */
+.math-equation {
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+    padding: 6px 15px; /* Espaciado alrededor de la fórmula */
+    border-radius: 6px; /* Bordes redondeados */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Contenedor de la gráfica */
 #plot-container {
-    margin-top: 40px;
-    width: 100%;
-    height: 450px;
-    border: 1px solid #bdc3c7;
-    border-radius: 12px;
-    background-color: transparent;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px; /* Espacio superior */
+    width: 100%; /* Ancho completo */
+    height: 400px; /* Altura fija */
+    border: 2px dashed #bdc3c7; /* Borde punteado gris */
+    border-radius: 12px; /* Bordes redondeados */
+    background-color: #ffffff; /* Fondo gris claro */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flex; /* Flexbox para centrar contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+}
+
+#data-container {
+    margin-top: 20px; /* Espacio superior */
+    font-family: Arial, sans-serif; /* Fuente moderna */
+}
+
+/* Estilo general para los contenedores de datos */
+#matriz-data {
+    padding: 20px;
+    background-color: #f9f9f9; /* Fondo suave */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-top: 20px; /* Espacio superior */
+    font-family: 'Roboto', sans-serif; /* Fuente moderna */
+}
+
+/* Estilo del título y encabezados */
+#matriz-data strong {
+    font-size: 1.2rem;
+    color: #2c3e50; /* Color de texto oscuro */
+    font-weight: bold;
+}
+
+/* Estilo para las tablas */
+table {
+    width: 100%; /* Ancho completo */
+    border-collapse: collapse; /* Colapsar bordes */
+    margin-top: 20px; /* Espacio superior */
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Evita bordes visibles fuera de la tabla */
+}
+
+/* Estilo para las celdas y encabezados de la tabla */
+th, td {
+    padding: 12px 18px; /* Espaciado dentro de las celdas */
+    text-align: center; /* Centrado del texto */
+    font-size: 1rem; /* Tamaño de fuente moderado */
+    border: 1px solid #ddd; /* Borde suave y gris */
+    color: #34495e; /* Color gris oscuro */
+}
+
+/* Fondo de las filas pares */
+tr:nth-child(even) {
+    background-color: #ecf0f1; /* Fondo gris claro */
+}
+
+/* Fondo de las filas impares */
+tr:nth-child(odd) {
+    background-color: #3498db; /* Fondo blanco */
+}
+
+/* Estilo para el texto dentro de las celdas */
+td {
+    font-family: 'Arial', sans-serif; /* Fuente sans-serif */
+    font-weight: normal; /* Normalizar peso de la fuente */
+}
+
+/* Estilo para los valores numéricos */
+td:nth-child(1),
+td:nth-child(2) {
+    font-size: 1rem; /* Tamaño moderado para valores */
+    font-weight: bold; /* Negrita en los valores */
+}
+
+/* Estilo para los textos generales fuera de la tabla */
+#matriz-data p {
+    font-size: 1.1rem; /* Tamaño de fuente para los textos generales */
+    color: #2c3e50; /* Color gris oscuro */
 }
