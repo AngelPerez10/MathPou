@@ -5,8 +5,6 @@ let bars = []; // Datos de las barras
 let colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple', 'pink', 'brown', 'gray', 'cyan', 'magenta']; // Colores para las 11 armónicas
 let xValue = 400; // Valor de x que deseas utilizar
 
-
-
 let individualCanvas; // Canvas para las ondas individuales
 let sumCanvas; // Canvas para la suma de las ondas
 let barCanvas; // Canvas para las barras
@@ -14,10 +12,10 @@ let barCanvas; // Canvas para las barras
 function setup() {
     // Crear los gráficos para las 11 ondas, la suma y las barras por separado
     individualCanvas = createGraphics(800, 300); // Gráfico para las 11 ondas
-    sumCanvas = createGraphics(800, 300); // Gráfico para la suma
+    sumCanvas = createGraphics(800, 400); // Gráfico para la suma (aumentar altura)
     barCanvas = createGraphics(800, 150); // Gráfico para las barras
 
-    let mainCanvas = createCanvas(800, 700); // Canvas principal con más altura
+    let mainCanvas = createCanvas(800, 850); // Canvas principal con más altura
     mainCanvas.parent('canvas-container'); // Asignar el canvas al contenedor principal
 
     textSize(15);
@@ -98,7 +96,7 @@ function drawSumSignal() {
             let angle = TWO_PI * (i + 1) * (x / width) * 2; // Factor de 2 para el rango completo
             sumY += sin(angle) * lastAmplitudes[i] * 50; // Reducir la escala de la suma
         }
-        let y = 150 + sumY;
+        let y = 200 + sumY; // Centrado para la suma
         sumCanvas.vertex(x, y);
     }
     sumCanvas.endShape();
@@ -115,6 +113,7 @@ function drawSingleHarmonic(canvas, index, yPos, amplitude) {
     }
     canvas.endShape();
 }
+
 
 function mousePressed() {
     for (let i = 0; i < maxHarmonics; i++) {
