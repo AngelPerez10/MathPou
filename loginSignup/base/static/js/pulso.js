@@ -1,17 +1,21 @@
-// Configuración de 8 componentes (A0 a A7), con amplitudes y fases
+// Configuración de 12 componentes (A0 a A11), con amplitudes y fases
 let components = [
     { amp: 0, phase: 0 },          // A0
-    { amp: 1.13201857, phase: -2.13770783 }, // A1
+    { amp: 0, phase: 0 },          // A1
     { amp: 0, phase: 0 },          // A2
-    { amp: 0.3253979754, phase: -1.77990097 }, // A3
+    { amp: 0, phase: 0 },          // A3
     { amp: 0, phase: 0 },          // A4
-    { amp: 0.19252778, phase: -1.69743886 },  // A5
+    { amp: 0, phase: 0 },          // A5
     { amp: 0, phase: 0 },          // A6
-    { amp: 0, phase: 0 }           // A7
+    { amp: 0, phase: 0 },          // A7
+    { amp: 0, phase: 0 },          // A8
+    { amp: 0, phase: 0 },          // A9
+    { amp: 0, phase: 0 },          // A10
+    { amp: 0, phase: 0 }           // A11
 ];
 
 let w = 8; // Frecuencia angular
-let colors = ['#ff6b6b', '#feca57', '#48dbfb', '#1dd1a1', '#54a0ff', '#9b59b6', '#ff9ff3']; // Paleta de colores moderna
+let colors = ['#ff6b6b', '#feca57', '#48dbfb', '#1dd1a1', '#54a0ff', '#9b59b6', '#ff9ff3', '#00d2d3', '#e84393', '#2ecc71', '#8e44ad']; // Paleta de colores extendida para 11 armónicos
 let t = []; // Vector de tiempo
 let bars = []; // Datos de las barras de amplitud
 let phaseBars = []; // Datos de las barras de fase
@@ -39,20 +43,20 @@ function setup() {
     textSize(14);
     textFont('Poppins');
 
-    // Configuración inicial de las barras (solo para A1 a A7)
+    // Configuración inicial de las barras (solo para A1 a A11)
     for (let i = 1; i < components.length; i++) {
         bars.push({
-            x: (i - 1) * 120 + 30, // Espaciado aumentado de 100 a 120
+            x: (i - 1) * 70 + 30, // Espaciado reducido de 120 a 70 para 11 barras
             y: 80,
-            width: 40,
+            width: 30, // Ancho reducido de 40 a 30 para que quepan
             amplitude: components[i].amp,
             dragging: false
         });
 
         phaseBars.push({
-            x: (i - 1) * 120 + 30, // Espaciado aumentado de 100 a 120
+            x: (i - 1) * 70 + 30, // Espaciado reducido de 120 a 70
             y: 180,
-            width: 40,
+            width: 30, // Ancho reducido de 40 a 30
             phase: components[i].phase,
             dragging: false
         });
@@ -128,8 +132,8 @@ function drawBars() {
         barCanvas.noStroke();
         barCanvas.textAlign(CENTER, CENTER);
         barCanvas.textStyle(NORMAL);
-        barCanvas.text(`A${i}: ${bar.amplitude.toFixed(4)}`, bar.x + bar.width / 2, 110);
-        barCanvas.text(`F${i}: ${phaseBar.phase.toFixed(2)}`, phaseBar.x + phaseBar.width / 2, 220);
+        barCanvas.text(`A${i}`, bar.x + bar.width / 2, 110); // Solo A1-A11, sin valores largos
+        barCanvas.text(`F${i}`, phaseBar.x + phaseBar.width / 2, 220); // Solo F1-F11
     }
 }
 
@@ -248,7 +252,7 @@ function mouseDragged() {
             components[dragging].amp = bar.amplitude;
         } else if (draggingType === 'phase') {
             let phaseBar = phaseBars[dragging - 1];
-            phaseBar.phase = normalizePhase(constrain((180 - mouseY) / 30, -PI, PI)); // Sensibilidad reducida de /15 a /30
+            phaseBar.phase = normalizePhase(constrain((180 - mouseY) / 30, -PI, PI));
             components[dragging].phase = phaseBar.phase;
         }
     }
@@ -269,34 +273,34 @@ window.onload = function() {
     
     document.getElementById('ejem1').addEventListener('click', () => {
         updateComponents(
-            [0.5, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1, 0.05],
-            [0, PI/4, PI/3, PI/2, PI, 0, PI/6, PI/8]
+            [0.5, 0.8, 0.6, 0.4, 0.3, 0.2, 0.1, 0.05, 0.03, 0.02, 0.01, 0.005],
+            [0, PI/4, PI/3, PI/2, PI, 0, PI/6, PI/8, PI/10, PI/12, PI/14, PI/16]
         );
         console.log("Ejemplo 1 cargado");
     });
 
     document.getElementById('ejem2').addEventListener('click', () => {
         updateComponents(
-            [0.2, 0.7, 0.5, 0.3, 0.1, 0.4, 0.2, 0.1],
-            [PI/2, PI/4, PI/3, 0, PI/6, PI, PI/2, 0]
+            [0, 1, 0, 0.11111111, 0, 0.04, 0, 0.02040816, 0, 0.01234568, 0, 0.00826446], // Magnitudes [An]
+            [0, -1.57079632, 1.69914315, 1.57079632, -1.57895407, -1.57079632, 1.56113291, -1.57079632, -1.5205868, 1.57079632, 1.57351257, -1.57079632] // Fases [fn]
         );
-        console.log("Ejemplo 2 cargado");
+        console.log("Ejemplo 2 cargado como onda triangular aproximada");
     });
 
     document.getElementById('ejem3').addEventListener('click', () => {
         updateComponents(
-            [1.0, 0.5, 0.3, 0.2, 0.1, 0.05, 0.02, 0.01],
-            [0, PI, PI/2, PI/4, PI/3, 0, PI/2, PI]
+            [1, 0.82699335, 0.41349667, 0, 0.20674834, 0.16539867, 0, 0.11814191, 0.10337432, 0, 0.08269934, 0.07518122], // Magnitudes [An]
+            [0, -2.0943951, -1.04719755, -3.14159265, -2.0943951, -1.04719755, -3.14159265, -2.0943951, -1.04719755, -3.14159265, -2.0943951, -1.04719755] // Fases [fn]
         );
-        console.log("Ejemplo 3 cargado");
+        console.log("Ejemplo 3 cargado con valores de la tabla");
     });
 
     document.getElementById('ejem4').addEventListener('click', () => {
         updateComponents(
-            [0, 0.9, 0, 0.6, 0, 0.3, 0, 0.1],
-            [0, 0, PI/2, PI/2, PI, PI, 0, PI/4]
+            [0, 1, 0, 0.28744933, 0, 0.17007476, 0, 0.12100643, 0, 0.09396349, 0, 0.07681592], // Magnitudes [An]
+            [0, -1.00388482, 0, -1.36169169, 0, -1.44415379, 0, 1.48010015, 0, 1.50017842, 0, 1.51298629] // Fases [fn]
         );
-        console.log("Ejemplo 4 cargado");
+        console.log("Ejemplo 4 cargado con valores de la tabla");
     });
 };
 
