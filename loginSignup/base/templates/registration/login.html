@@ -30,9 +30,6 @@
                                     {% endfor %}
                                 </div>
                             {% endif %}
-                            {% if field.help_text %}
-                                <div class="form-text">{{ field.help_text }}</div>
-                            {% endif %}
                         {% endfor %}
                     </div>
                     <div class="form-group">
@@ -49,5 +46,5 @@
 {% endblock content %}
 
 {% block extra_js %}
-<script src="{% static 'js/login.js'}" type="module"></script>
-{% endblock extra_js %}
+<script src="{% static 'js/login.js' %}" type="module"></script>
+{% endblock %}

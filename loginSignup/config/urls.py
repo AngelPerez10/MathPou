@@ -21,5 +21,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("loginSignup.base.urls"))
-] + static(settings.STATIC_URL)
+    path('accounts/', include('django.contrib.auth.urls')),  # URLs de autenticación incorporadas
+    path('', include('loginSignup.base.urls')),  # Incluye las URLs de tu app
+]

@@ -14,17 +14,13 @@ from pathlib import Path
 import os
 import dj_database_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Directorio base del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Clave secreta (en producción usa variables de entorno)
+SECRET_KEY = os.environ.get('SECRET_KEY', default='tu-clave-secreta-aqui')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
-
-# SECURITY WARNING: don't run with debug turned on in production!
+# Modo debug (desactivar en producción)
 DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ["*"]
@@ -33,9 +29,7 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-
-# Application definition
-
+# Aplicaciones instaladas
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,16 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'loginSignup.base',  # App base correctamente referenciada
+    'loginSignup.base',  # Tu aplicación base
 ]
-
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = "index"
-LOGOUT_REDIRECT_URL = "home"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Añadido para producción
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -67,8 +57,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'loginSignup/base/templates'),  # Ruta corregida
-            BASE_DIR / "templates"  # Mantenido por compatibilidad
+            os.path.join(BASE_DIR, 'loginSignup/base/templates'),
+            os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -84,10 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'loginSignup.config.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+# Base de datos (SQLite por defecto)
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
@@ -95,15 +82,12 @@ WSGI_APPLICATION = 'loginSignup.config.wsgi.application'
 #    }
 #}
 
-
-# Configuración para producción (PostgreSQL en Render)
+# Configuración para PostgreSQL en producción (comentada)
 DATABASES = {
     "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
+# Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -119,46 +103,26 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
-LANGUAGE_CODE = 'es-es'  # Cambiado a español
-
+# Internacionalización
+LANGUAGE_CODE = 'es-es'
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
+# Archivos estáticos
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Necesario para collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'loginSignup/base/static'),  # Ruta corregida
-    # os.path.join(BASE_DIR, 'DigitalFlow/static'),  # Mantenido comentado
+    os.path.join(BASE_DIR, 'loginSignup/base/static'),
 ]
 
-
-# Configuración solo para producción
+# Configuración para producción
 if not DEBUG:
-    # Configuración específica para producción en Render
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    
-    # Configuración alternativa (comentada)
-    # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+# Configuración de autenticación
+LOGIN_URL = 'base:login'  # Usando el namespace
+LOGIN_REDIRECT_URL = "base:index"
+LOGOUT_REDIRECT_URL = "base:home"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-# Configuración de autenticación actualizada
-LOGIN_URL = 'login'  # Nombre de URL directo
-LOGIN_REDIRECT_URL = "index"  # Nombre de URL directo
-LOGOUT_REDIRECT_URL = "home"  # Nombre de URL directo
