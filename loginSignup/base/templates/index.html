@@ -1,59 +1,104 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathPou - Señales de Pulso</title>
+    
+    <!-- Carga de estilos -->
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <title>MathPou</title>
 </head>
 <body>
+    <!-- Barra de navegación -->
     <div id="navbar">
         {% block navbar %}
         {% include 'navbar.html' %}
         {% endblock %}
     </div>
 
-    {% block content %}
-    <div class="dash-content">
+    <!-- Contenido principal -->
+    <main class="dash-content">
         <div class="overview">
             <div class="title">
                 <i class="uil uil-chart-line"></i>
                 <span class="text">Tipos de señales de pulso</span>
             </div>
-            <div class="boxes">
+            
+            <div class="boxes-container">
+                <!-- Cuadro 1 - Pulso cuadrado -->
+                <div class="signal-box square">
+                    <div class="box-header">
+                        <i class="fas fa-wave-square box-icon"></i>
+                        <h2>Pulso cuadrado</h2>
+                    </div>
+                    <div class="box-content">
+                        <p>Las señales cuadradas cambian abruptamente entre dos niveles de tensión a intervalos regulares. Su forma discontinua las convierte en excelentes candidatas para pruebas de amplificadores, ya que contienen múltiples frecuencias armónicas de forma natural.</p>
+                    </div>
+                </div>
                 
-                <div class="box box1">
-                    <div class="icon"><i class="fas fa-wave-square"></i></div>
-                    <div class="text">Pulso cuadrado</div>
-                    <p>Las señales cuadradas son básicamente señales que pasan de un estado a otro de tensión, a intervalos regulares, en un tiempo muy reducido. 
-                        Son utilizadas usualmente para probar amplificadores (esto es debido a que este tipo de señales contienen en sí mismas todas las frecuencias).
-                    </p>
+                <!-- Cuadro 2 - Pulso triangular -->
+                <div class="signal-box triangular">
+                    <div class="box-header">
+                        <i class="fas fa-chart-area box-icon"></i>
+                        <h2>Pulso triangular</h2>
+                    </div>
+                    <div class="box-content">
+                        <p>Este tipo de señal presenta un aumento y una disminución lineal de la tensión, generando una forma de triángulo simétrico. Es común en moduladores y sintetizadores debido a su suavidad en comparación con el pulso cuadrado.</p>
+                    </div>
                 </div>
-                <div class="box box2">
-                    <div class="icon"><i class="fas fa-chart-area"></i></div>
-                    <div class="text">Pulso triangular</div>
-                    <p>Un pulso triangular es un tipo de señal eléctrica o electrónica que, como su nombre indica, tiene una forma similar a un triángulo equilátero. Se caracteriza por
-                        tener dos rampas lineales: una ascendente y otra descendente, que conectan dos niveles de voltaje diferentes.
-                    </p>
+                
+                <!-- Cuadro 3 - Pulso combinado -->
+                <div class="signal-box combined">
+                    <div class="box-header">
+                        <i class="fas fa-chart-line box-icon"></i>
+                        <h2>Pulso combinado</h2>
+                    </div>
+                    <div class="box-content">
+                        <p>Surge al superponer dos o más señales básicas. Permite representar señales más complejas y personalizadas, combinando distintos valores de amplitud, frecuencia, duración y forma de onda.</p>
+                    </div>
                 </div>
-                <div class="box box3">
-                    <div class="icon"><i class="fas fa-chart-line"></i></div>
-                    <div class="text">Pulso combinado</div>
-                    <p>Son aquellas que se forman a partir de la unión o superposición de dos o más señales de pulso individuales. Cada una de estas señales 
-                        individuales puede tener diferentes características como amplitud, duración, forma de onda y frecuencia.
-                    </p>
+                
+                <!-- Cuadro 4 - Armónicos -->
+                <div class="signal-box harmonics">
+                    <div class="box-header">
+                        <i class="fas fa-wave-pulse box-icon"></i>
+                        <h2>Armónicos y frecuencia</h2>
+                    </div>
+                    <div class="box-content">
+                        <p>Los armónicos son componentes sinusoidales de una señal periódica que ocurren en múltiplos enteros de la frecuencia fundamental. Su análisis revela la "firma espectral" de una señal y permite su reconstrucción mediante la serie de Fourier.</p>
+                    </div>
+                </div>
+                
+                <!-- Cuadro 5 - Fourier -->
+                <div class="signal-box fourier">
+                    <div class="box-header">
+                        <i class="fas fa-square-root-alt box-icon"></i>
+                        <h2>Serie de Fourier</h2>
+                    </div>
+                    <div class="box-content">
+                        <p>Es una herramienta matemática que permite descomponer señales periódicas en la suma de senos y cosenos. Gracias a esta serie es posible representar funciones complejas como combinaciones simples, facilitando su estudio y simulación.</p>
+                    </div>
+                </div>
+                
+                <!-- Cuadro 6 - Reconstrucción -->
+                <div class="signal-box reconstruction">
+                    <div class="box-header">
+                        <i class="fas fa-project-diagram box-icon"></i>
+                        <h2>Reconstrucción armónica</h2>
+                    </div>
+                    <div class="box-content">
+                        <p>Es el proceso de aproximar una señal original utilizando una cantidad finita de armónicos. Mientras mayor sea el número de armónicos usados, mejor será la reconstrucción de la señal original en el dominio del tiempo.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% endblock content %}
+    </main>
 
+    <!-- Scripts -->
     <script src="{% static 'js/index.js' %}"></script>
-    <script src="{% static 'js/pulso.js' %}"></script>
 </body>
 </html>

@@ -75,17 +75,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'loginSignup.config.wsgi.application'
 
 # Base de datos (SQLite por defecto)
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # Configuración para PostgreSQL en producción (comentada)
-DATABASES = {
-    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+#DATABASES = {
+#    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+#}
 
 # Validación de contraseñas
 AUTH_PASSWORD_VALIDATORS = [
