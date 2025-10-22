@@ -102,34 +102,48 @@ def grafica_example_calculate(amplitudes, times):
         'amplitudes': an_values,
         'phases': bn_values,
         'time': list(t),
-        'signal': list(f)
     }
 
 def calculate_signal_data(matriz=None):
     if matriz is None:
         matriz = [[0, 0], [1, 1], [-2, 3], [10, 6]]  # Datos por defecto
-    
+
     A = [row[0] for row in matriz]  # Amplitudes
     at = [row[1] for row in matriz]  # Tiempos
     npulses = len(A) - 1
-    
-    T = at[npulses]
-    w0 = 2 * np.pi / T
 
-    a0 = 0
+    if npulses <= 0:
+        # Caso especial: solo A0
+        return {
+            'amplitudes': [A[0] if len(A) > 0 else 0],
+            'phases': [0],
+            'time': [0, 1],
+            'signal': [A[0] if len(A) > 0 else 0, A[0] if len(A) > 0 else 0],
+            'T': 1,
+            'w0': 0
+        }
+
+    T = at[npulses]
+    w0 = 2 * np.pi / T if T > 0 else 0
+
+    # Calcular a0 (término constante) incluyendo A0
+    a0 = A[0]  # A0 es el término constante inicial
     for k in range(1, npulses + 1):
         a0 += (2 / T) * A[k] * (at[k] - at[k-1])
 
-    f = a0 / 2
+    f = a0 / 2  # Valor promedio de la función
     t = np.linspace(0, 2 * T, 1024 * 2 * int(np.pi))
 
-    an_values = []
-    bn_values = []
+    an_values = [a0]  # Incluir a0 como primer elemento
+    bn_values = [0]   # Fase de a0 es 0
+
     for n in range(1, 101):
         an, bn = 0, 0
         for k in range(1, npulses + 1):
-            an += (1 / (n * np.pi)) * A[k] * (np.sin(n * w0 * at[k]) - np.sin(n * w0 * at[k-1]))
-            bn -= (1 / (n * np.pi)) * A[k] * (np.cos(n * w0 * at[k]) - np.cos(n * w0 * at[k-1]))
+            # Integral para los coeficientes incluyendo A0
+            an += (2 / T) * A[k] * (at[k] - at[k-1]) * np.cos(n * w0 * at[k-1])
+            bn += (2 / T) * A[k] * (at[k] - at[k-1]) * np.sin(n * w0 * at[k-1])
+
         an_values.append(an)
         bn_values.append(bn)
         f += an * np.cos(n * w0 * t) + bn * np.sin(n * w0 * t)
@@ -143,17 +157,55 @@ def calculate_signal_data(matriz=None):
         'w0': w0
     }
 
+def generate_pulse_signal(matriz):
+    """Genera señal de pulsos discretos basada en los puntos de amplitud"""
+    if not matriz:
+        return {'time': [], 'signal': [], 'T': 0, 'w0': 0}
+
+    # Extraer amplitudes y tiempos
+    amplitudes = [row[0] for row in matriz]
+    times = [row[1] for row in matriz]
+
+    # Calcular período T (último tiempo)
+    T = times[-1] if times else 0
+    w0 = 2 * np.pi / T if T > 0 else 0
+
+    # Generar puntos de tiempo
+    num_samples = 1000  # Número de puntos para la visualización
+    t_max = max(times) if times else 1
+    t = np.linspace(0, t_max + 1, num_samples)  # Extender un poco más allá del último punto
+
+    # Generar señal de pulsos
+    signal = np.zeros_like(t)
+
+    for i, current_t in enumerate(t):
+        # Encontrar la amplitud correcta para este tiempo
+        for j in range(len(times)):
+            if current_t >= times[j]:
+                signal[i] = amplitudes[j]
+            else:
+                break
+
+    return {
+        'time': list(t),
+        'signal': list(signal),
+        'T': T,
+        'w0': w0
+    }
+
 def calculate_signal_of_prueba_grafica(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
             matriz = data.get('datos', [])
-            
+
             if not isinstance(matriz, list) or not all(isinstance(row, list) and len(row) == 2 for row in matriz):
                 return HttpResponseBadRequest("Datos de entrada no válidos.")
-            
+
             matriz = [[float(value) for value in row] for row in matriz]
-            result = calculate_signal_data(matriz)
+
+            # Generar señal de pulsos discretos en lugar de serie de Fourier
+            result = generate_pulse_signal(matriz)
             return JsonResponse(result)
 
         except json.JSONDecodeError:

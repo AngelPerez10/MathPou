@@ -31,7 +31,6 @@
                 }
             },
             options: {
-                ignoreHtmlClass: 'tex2jax_ignore',
                 processHtmlClass: 'tex2jax_process'
             },
             loader: { load: ['[tex]/ams'] },
@@ -46,60 +45,20 @@
             }
         };
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
 
 </head>
 
 <body>
-    <!-- Navbar lateral -->
-    <nav id="sidebar">
-        <div class="logo-name">
-            <span class="logo_name">MathPou</span>
-        </div>
-
-        <div class="menu-items">
-            <ul class="nav-links">
-                <li>
-                    <a href="{% url 'base:index' %}" class="{% if request.path == '/' %}active{% endif %}">
-                        <i class="uil uil-estate"></i>
-                        <span class="link-name">Inicio</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'base:prueba-grafica' %}" class="{% if 'prueba-grafica' in request.path %}active{% endif %}">
-                        <i class="uil uil-files-landscapes"></i>
-                        <span class="link-name">Gráficas</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'base:prueba-data' %}" class="{% if 'prueba-data' in request.path %}active{% endif %}">
-                        <i class="uil uil-chart"></i>
-                        <span class="link-name">Análisis Fourier</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{% url 'base:show-signal-data' %}" class="{% if 'show-signal-data' in request.path %}active{% endif %}">
-                        <i class="uil uil-comment-exclamation"></i>
-                        <span class="link-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Ejemplos de serie de funciones típicas</span>
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="logout-mode">
-                <li>
-                    <a href="{% url 'base:home' %}">
-                        <i class="uil uil-signout"></i>
-                        <span class="link-name">Salir</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
     {% block content %}
+
+    <!-- Navbar -->
+    <div id="navbar">
+        {% block navbar %}
+        {% include 'navbar.html' %}
+        {% endblock %}
+    </div>
+
     <div class="container animate-fadeIn">
         <!-- Botón de instrucciones en esquina superior derecha -->
         <div class="instrucciones-btn-container">
@@ -107,7 +66,6 @@
                 <i class="uil uil-info-circle"></i>
             </button>
         </div>
-
         <div class="form_and_graph">
             <h1>Análisis de Fourier en el dominio del tiempo</h1>
 
@@ -118,22 +76,32 @@
                     <span>Parámetros de la señal</span>
                 </div>
 
+                
+
                 <div id="inputs-container">
                     <div id="inputs-list">
-                        <div class="input-group">
-                            <label for="amplitud">
-                                <i class="uil uil-chart-growth"></i>
-                                Amplitud A<sub>1</sub>:
-                            </label>
-                            <input type="number" name="amplitud" class="amplitud" id="amplitud-input" placeholder="Ingrese valor">
-                        </div>
-
                         <div class="input-group">
                             <label for="tiempo">
                                 <i class="uil uil-clock"></i>
                                 Tiempo t<sub>0</sub>:
                             </label>
-                            <input type="number" name="tiempo" class="tiempo" id="tiempo-input" placeholder="Ingrese valor">
+                            <input type="number" name="tiempo" class="tiempo" id="tiempo-input" placeholder="Ingrese valor (puede ser 0)" min="0" step="0.1">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="amplitud">
+                                <i class="uil uil-chart-growth"></i>
+                                Amplitud 1:
+                            </label>
+                            <input type="number" name="amplitud" class="amplitud" id="amplitud-input" placeholder="Ingrese valor" step="0.1">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="tiempo1">
+                                <i class="uil uil-clock"></i>
+                                Tiempo t<sub>1</sub>:
+                            </label>
+                            <input type="number" name="tiempo1" class="tiempo" id="tiempo1-input" placeholder="Ingrese valor" min="0" step="0.1">
                         </div>
                     </div>
                 </div>
@@ -145,7 +113,7 @@
                     <button type="button" id="btn_generar" class="btn btn-generate">
                         <i class="uil uil-process"></i> Generar gráfica
                     </button>
-                    <button type="button" id="clear" class="btn btn-clear">
+                    <button type="button" id="btn_clear" class="btn btn-clear">
                         <i class="uil uil-trash-alt"></i> Limpiar
                     </button>
                 </div>
@@ -159,15 +127,16 @@
                     \[ f(t) = \frac{a_0}{2} + \sum_{n=1}^{\infty} \left( a_n \cos n \omega_0 t + b_n \sen n \omega_0 t
                     \right) \]
                 </div>
+                <p class="formula-note">Donde \( \omega_0 = \frac{2\pi}{T} \) y \(N\) es el número de pulsos.</p>
 
-                <div class="coefficients-container">
-                    <div class="coefficient-box">
-                        <div class="coefficient-title">\(a_0\)</div>
+                <div class="coefficients-container" style="display:flex; gap:12px; flex-wrap:wrap; align-items:stretch;">
+                    <div class="coefficient-box" style="flex:1 1 220px;">
+                        <div class="coefficient-title">a0</div>
                         \[ a_0 = \frac{2}{T} \sum_{k=1}^{N} A_k (t_k - t_{k-1}) \]
                     </div>
 
-                    <div class="coefficient-box">
-                        <div class="coefficient-title">\(a_n\)</div>
+                    <div class="coefficient-box" style="flex:1 1 220px;">
+                        <div class="coefficient-title">an</div>
                         \[
                         \begin{split}
                         a_n = \frac{1}{\pi} \sum_{k=1}^{N} \frac{A_k}{n} \big[ & \sen n \omega_0 t_k \\
@@ -176,8 +145,8 @@
                         \]
                     </div>
 
-                    <div class="coefficient-box">
-                        <div class="coefficient-title">\(b_n\)</div>
+                    <div class="coefficient-box" style="flex:1 1 220px;">
+                        <div class="coefficient-title">bn</div>
                         \[
                         \begin{split}
                         b_n = -\frac{1}{\pi} \sum_{k=1}^{N} \frac{A_k}{n} \big[ & \cos n \omega_0 t_k \\
@@ -231,17 +200,25 @@
             <button class="close-modal" id="close-instrucciones-modal">&times;</button>
             <h3 class="modal-title"><i class="uil uil-info-circle"></i> Instrucciones para la simulación</h3>
             <div class="modal-body">
-                <p>Ingresa los datos relacionados con la gráfica conceptual mostrada:</p>
+                <p>
+                    Instrucciones para la simulación: Ingresa los datos relacionados con la gráfica conceptual mostrada.
+                    <strong>t<sub>0</sub></strong> es donde inicia el primer módulo y <strong>t<sub>1</sub></strong> donde termina.
+                    <strong>A<sub>1</sub></strong> es la amplitud entre <strong>t<sub>0</sub></strong> y <strong>t<sub>1</sub></strong>.
+                    <strong>A<sub>2</sub></strong> entre <strong>t<sub>1</sub></strong> y <strong>t<sub>2</sub></strong>.
+                    <em>t<sub>0</sub> puede ser cero incluso.</em>
+                    Y así sucesivamente.
+                </p>
+                <div style="text-align: center; margin: 12px 0;">
+                    <img src="{% static 'img/figura_pulso.png' %}" alt="Figura de pulso" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);" />
+                </div>
                 <ul>
                     <li><strong>t<sub>0</sub></strong> es donde inicia el primer módulo (valor inicial)</li>
                     <li><strong>t<sub>1</sub></strong> es donde termina el primer módulo</li>
-                    <li>La amplitud del pulso 0 es <strong>A<sub>0</sub></strong></li>
                     <li>Y así sucesivamente para los siguientes pulsos</li>
                 </ul>
 
                 <h4>Ejemplo para 3 pulsos:</h4>
                 <ol>
-                    <li>Amplitud 0 (A<sub>0</sub>) y Tiempo t<sub>0</sub> (inicio del primer pulso)</li>
                     <li>Amplitud 1 (A<sub>1</sub>) y Tiempo t<sub>1</sub> (final del primer pulso)</li>
                     <li>Amplitud 2 (A<sub>2</sub>) y Tiempo t<sub>2</sub> (final del segundo pulso)</li>
                 </ol>
@@ -253,7 +230,7 @@
                     <li>Pulso 2: t<sub>3</sub> - t<sub>2</sub></li>
                 </ul>
 
-                <p><strong>Nota:</strong> La señal comienza en t<sub>0</sub> = 0 por defecto</p>
+                <p><strong>Nota:</strong> Se permiten ceros en tiempos y amplitudes (tenga en cuenta que tiempos iguales producen duraciones cero).</p>
             </div>
         </div>
     </div>
@@ -323,90 +300,6 @@
         } else {
             window.addEventListener('load', checkMathJax);
         }
-
-        // Funciones con SweetAlert - CORREGIDAS
-        document.getElementById('crear').addEventListener('click', function() {
-            const amplitud = document.getElementById('amplitud-input').value;
-            const tiempo = document.getElementById('tiempo-input').value;
-            
-            if (!amplitud || !tiempo) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Campos incompletos',
-                    text: 'Por favor, complete ambos campos antes de continuar.',
-                    confirmButtonColor: '#4A6CF7'
-                });
-                return;
-            }
-            
-            Swal.fire({
-                icon: 'success',
-                title: '¡Datos creados!',
-                text: `Amplitud: ${amplitud}, Tiempo: ${tiempo}`,
-                confirmButtonColor: '#4A6CF7'
-            });
-            
-            // Aquí iría la lógica para procesar los datos
-        });
-
-        document.getElementById('btn_generar').addEventListener('click', function() {
-            const amplitud = document.getElementById('amplitud-input').value;
-            const tiempo = document.getElementById('tiempo-input').value;
-            
-            // Validar que los campos no estén vacíos
-            if (!amplitud || !tiempo) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Debe completar los campos de Amplitud y Tiempo antes de generar la gráfica.',
-                    confirmButtonColor: '#4A6CF7'
-                });
-                return;
-            }
-            
-            Swal.fire({
-                title: 'Generando gráfica',
-                text: 'Procesando datos para generar la visualización...',
-                icon: 'info',
-                showConfirmButton: false,
-                timer: 1500,
-                timerProgressBar: true
-            }).then(() => {
-                // Aquí iría la lógica para generar la gráfica
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Gráfica generada!',
-                    text: 'La visualización se ha creado correctamente.',
-                    confirmButtonColor: '#4A6CF7'
-                });
-            });
-        });
-
-        document.getElementById('clear').addEventListener('click', function() {
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "Se borrarán todos los datos ingresados.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Sí, borrar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    document.getElementById('amplitud-input').value = '';
-                    document.getElementById('tiempo-input').value = '';
-                    
-                    Swal.fire({
-                        icon: 'success',
-                        title: '¡Datos borrados!',
-                        text: 'Los campos han sido limpiados.',
-                        confirmButtonColor: '#4A6CF7',
-                        timer: 1500
-                    });
-                }
-            });
-        });
     </script>
 </body>
 
