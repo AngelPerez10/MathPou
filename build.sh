@@ -21,7 +21,7 @@ User = get_user_model();
 if not User.objects.filter(username='AngelPerez10').exists():
     User.objects.create_superuser(
         username='AngelPerez10',
-        email='angel@example.com',
+        email='angeelp7457@gmail.com',
         password='PEREZA01FL0',
         first_name='Angel',
         last_name='Perez'
