@@ -49,12 +49,15 @@ def signal_data_view(request):
 def show_signal_data_view(request):
     return render(request, 'grafica_view.html')
 
+@login_required
 def prueba_data(request):
     return render(request, "prueba_data.html", {})
 
+@login_required
 def prueba_grafica(request):
     return render(request, "prueba_grafica.html", {})
 
+@login_required
 def grafica_example(request, graph_id):
     # Define diferentes conjuntos de datos según el `graph_id`
     if graph_id == '1':
@@ -193,6 +196,7 @@ def generate_pulse_signal(matriz):
         'w0': w0
     }
 
+@login_required
 def calculate_signal_of_prueba_grafica(request):
     if request.method == 'POST':
         try:

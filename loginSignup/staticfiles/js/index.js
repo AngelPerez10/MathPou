@@ -11,7 +11,7 @@ if (getMode && getMode === "dark") {
     body.classList.toggle("red");
 }
 
-modeToggle.addEventListener("click", () => {
+if (modeToggle) modeToggle.addEventListener("click", () => {
     body.classList.toggle("dark");
     body.classList.remove("red");
 
@@ -22,7 +22,7 @@ modeToggle.addEventListener("click", () => {
     }
 });
 
-modeToggle2.addEventListener("click", () => {
+if (modeToggle2) modeToggle2.addEventListener("click", () => {
     body.classList.toggle("red");
     body.classList.remove("dark");
 
@@ -33,7 +33,7 @@ modeToggle2.addEventListener("click", () => {
     }
 });
 
-sidebarToggle.addEventListener("click", () => {
+if (sidebarToggle) sidebarToggle.addEventListener("click", () => {
     sidebar.classList.toggle("close");
     if(sidebar.classList.contains("close")){
         localStorage.setItem("status", "close");
@@ -43,8 +43,9 @@ sidebarToggle.addEventListener("click", () => {
 });
 
 const sizeToggleSwitch = document.querySelector(".size-toggle-switch");
-
-sizeToggleSwitch.addEventListener("click", () => {
-    sizeToggleSwitch.classList.toggle("active");
-    document.body.style.fontSize = sizeToggleSwitch.classList.contains("active") ? "20px" : "";
-});
+if (sizeToggleSwitch) {
+    sizeToggleSwitch.addEventListener("click", () => {
+        sizeToggleSwitch.classList.toggle("active");
+        document.body.style.fontSize = sizeToggleSwitch.classList.contains("active") ? "20px" : "";
+    });
+}

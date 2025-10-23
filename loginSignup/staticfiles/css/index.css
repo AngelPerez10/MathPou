@@ -28,8 +28,8 @@ body {
 }
 
 .dash-content {
-    padding: 2rem;
-    margin-left: 250px; /* Ajustar según el ancho de tu navbar */
+    padding: 3rem;
+    margin-left: 0; /* La separación izquierda la maneja .dashboard (navbar.css) */
 }
 
 .overview .title {
