@@ -401,6 +401,12 @@ function drawPreviewAndAdjust(timeArr, signalArr) {
         maxY = Math.ceil(maxAmplitude + 2);
     }
 
+    // Normalizar rangos a enteros para ticks limpios
+    minX = Math.floor(minX);
+    maxX = Math.ceil(maxX);
+    minY = Math.floor(minY);
+    maxY = Math.ceil(maxY);
+
     console.log('Rangos de vista previa -> minX,maxX,minY,maxY:', minX, maxX, minY, maxY);
     drawGraph();
 }
@@ -535,11 +541,11 @@ document.getElementById('btn_generar').addEventListener('click', function () {
             baseSignal.push(seg.amp);
         }
         // Forzar nivel 0 al inicio y fin del periodo para separar visualmente los periodos
-        if (baseTime.length === 0 || baseTime[0] > t0ui) {
+        if (false && (baseTime.length === 0 || baseTime[0] > t0ui)) {
             baseTime.unshift(t0ui);
             baseSignal.unshift(0);
         }
-        if (baseTime[baseTime.length - 1] < tLast) {
+        if (false && baseTime[baseTime.length - 1] < tLast) {
             baseTime.push(tLast);
             baseSignal.push(0);
         }
@@ -547,7 +553,7 @@ document.getElementById('btn_generar').addEventListener('click', function () {
         let toDraw = { time: baseTime, signal: baseSignal };
         if (isFinite(Tbase) && Tbase > 0) {
             // Mostrar a partir de t0 hacia adelante solamente (sin periodos antes de t0)
-            toDraw = (window.tileSignal || function(t, s){return {time:t, signal:s};})(baseTime, baseSignal, Tbase, 0, 3, 1);
+            toDraw = (window.tileSignal || function(t, s){return {time:t, signal:s};})(baseTime, baseSignal, Tbase, 0, 3, 0);
         }
         console.log('Vista previa generada (tiling -1T..+2T):', toDraw);
         renderMode = 'step';
@@ -768,37 +774,30 @@ function drawAxes() {
     fill(axisColor);
     noStroke();
 
-    let marcaXValues = [];
-    for (let i = 0; i <= numMarksX; i++) {
-        let value = map(i, 0, numMarksX, minX, maxX);
-        let marcaValue = Math.round(value);
-
-        // Evitar duplicados
-        if (marcaXValues.indexOf(marcaValue) === -1) {
-            marcaXValues.push(marcaValue);
-            let x = map(marcaValue, minX, maxX, 50, width - 50);
-            strokeWeight(1);
-            line(x, height - 55, x, height - 45);
-            text(marcaValue.toString(), x, height - 20);
-        }
+    // Eje X: ticks en enteros
+    const xStart = Math.floor(minX);
+    const xEnd = Math.ceil(maxX);
+    for (let v = xStart; v <= xEnd; v += 1) {
+        let x = map(v, minX, maxX, 50, width - 50);
+        stroke(axisColor);
+        strokeWeight(1);
+        line(x, height - 55, x, height - 45);
+        noStroke();
+        fill(axisColor);
+        text(v.toString(), x, height - 20);
     }
 
     // Marcas en el eje Y - calcular marcas únicas
-    let marcaYValues = [];
-    for (let i = 0; i <= numMarksY; i++) {
-        let value = map(i, 0, numMarksY, minY, maxY);
-        let marcaValue = Math.round(value);
-
-        // Evitar duplicados
-        if (marcaYValues.indexOf(marcaValue) === -1) {
-            marcaYValues.push(marcaValue);
-            let y = map(marcaValue, minY, maxY, height - 50, 50);
-            strokeWeight(1);
-            line(45, y, 55, y);
-            noStroke();
-            fill(axisColor);
-            text(marcaValue.toString(), 15, y);
-        }
+    const yStart = Math.floor(minY);
+    const yEnd = Math.ceil(maxY);
+    for (let v = yStart; v <= yEnd; v += 1) {
+        let y = map(v, minY, maxY, height - 50, 50);
+        stroke(axisColor);
+        strokeWeight(1);
+        line(45, y, 55, y);
+        noStroke();
+        fill(axisColor);
+        text(v.toString(), 15, y);
     }
 
     // Etiquetas de ejes
